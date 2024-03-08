@@ -2,11 +2,7 @@ let navbar = {
   logo: "/eye_logo.png",
   imageAltText: "logo",
   websiteName: "SI HER",
-  linkText1: "VALUE",
-  linkText2: "MY MEDIA",
-  linkText3: "VISION",
-  linkText4: "CV",
-  linkText5: "CONNECT",
+  links: ["VALUE", "MY MEDIA", "VISION", "CV", "CONNECT", "LOGIN"],
   buttonText: "LOGIN",
   fixedHeader: true,
 };

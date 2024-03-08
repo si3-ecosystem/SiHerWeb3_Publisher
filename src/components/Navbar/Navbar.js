@@ -43,23 +43,19 @@ function Navbar({ setIsOpen }) {
           </div>
           <div className="menus" onClick={handelNav}>
             <ul>
-              <li>
-                <a href="#value" className="text-red-500">
-                  {websiteData?.navbar?.linkText1}
-                </a>
-              </li>
-              <li>
-                <a href="#media">{websiteData?.navbar?.linkText2}</a>
-              </li>
-              <li>
-                <a href="#vision">{websiteData?.navbar?.linkText3}</a>
-              </li>
-              <li>
-                <a href="#cv">{websiteData?.navbar?.linkText4}</a>
-              </li>
-              <li>
-                <a href="#connect">{websiteData?.navbar?.linkText5}</a>
-              </li>
+              {websiteData?.navbar?.links?.map((item, index) => {
+                return (
+                  <li>
+                    <a
+                      href={`#${item.toString().toLowerCase()}`}
+                      key={index}
+                      className="text-red-500"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="connect-btn">

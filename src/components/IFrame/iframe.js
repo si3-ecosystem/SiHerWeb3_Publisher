@@ -34,16 +34,20 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-export const IFrame = ({ children, width, height, cssFiles, ...props }) => {
-  console.log(cssFiles);
+export const IFrame = ({
+  children,
+  width,
+  height,
+  cssFiles,
+  // setScreenWidth,
+  ...props
+}) => {
+  console.log(width);
   const [contentRef, setContentRef] = useState(null);
 
   const handleLoad = () => {
     if (!contentRef || !contentRef.contentWindow) return;
-
     const iframeHead = contentRef.contentWindow.document.head;
-
-    // Load parent CSS files
     cssFiles.forEach((cssFile) => {
       const linkElement = document.createElement("link");
       linkElement.rel = "stylesheet";
@@ -51,7 +55,14 @@ export const IFrame = ({ children, width, height, cssFiles, ...props }) => {
       iframeHead.appendChild(linkElement);
     });
   };
-
+  // useEffect(() => {
+  //   if (contentRef && contentRef.contentWindow) {
+  //     contentRef.contentWindow.addEventListener("resize", () => {
+  //       console.log(contentRef.offsetWidth);
+  //       setScreenWidth(contentRef.offsetWidth);
+  //     });
+  //   }
+  // }, [contentRef]);
   return (
     <iframe
       {...props}

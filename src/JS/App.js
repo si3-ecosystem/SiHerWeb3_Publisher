@@ -9,9 +9,12 @@ import { PrivateRoutes } from "../components/PrivateRoutes/index.js";
 import Home from "../pages/Home.js";
 import Login from "../pages/Login.js";
 import Preview from "../pages/Preview.js";
+import Register from "../pages/Register.js";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <div>
+      <Toaster position="top-right" />
       <Routes>
         <Route
           path="*"
@@ -28,6 +31,7 @@ function App() {
           }
         />
         <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
         {/* <Route path="/auth/forget-password" element={<ForgetPassword />} />
         <Route path="/auth/verify-otp/:id/:token" element={<OTP />} />
         <Route

@@ -27,6 +27,21 @@ function NavbarFields({ toggleDrawer }) {
     updatedNavbarData[fieldName] = value;
     dispatch(handleWebsiteData({ ...websiteData, navbar: updatedNavbarData }));
   };
+  const handleLinkTextChange = (index, value) => {
+    const updatedLinks = [...websiteData.navbar.links];
+    updatedLinks[index] = value;
+
+    dispatch(
+      handleWebsiteData({
+        ...websiteData,
+        navbar: {
+          ...websiteData.navbar,
+          links: updatedLinks,
+        },
+      })
+    );
+  };
+
   return (
     <div className="w-full bg-white">
       <div className=" border border-b-gray-200 z-10 bg-gray-100  flex items-center justify-between  w-full p-4">
@@ -101,79 +116,24 @@ function NavbarFields({ toggleDrawer }) {
               />
             </div>
           </div>
-
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">LINKS</p>
-            <div className="w-full">
-              <p className="text-xs text-start mt-6 font-semibold text-gray-600">
-                Link Text
-              </p>
-              <input
-                value={websiteData?.navbar?.linkText1}
-                type="text"
-                id="linkText1"
-                class="mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                placeholder="Value"
-                required
-                onChange={(e) => handleInputChange("linkText1", e.target.value)}
-              />
-            </div>
-            <div className="w-full">
-              <p className="text-xs text-start mt-6 font-semibold text-gray-600">
-                Link Text
-              </p>
-              <input
-                value={websiteData?.navbar?.linkText2}
-                type="text"
-                id="linkText2"
-                class="mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                placeholder="My Media"
-                required
-                onChange={(e) => handleInputChange("linkText2", e.target.value)}
-              />
-            </div>
-            <div className="w-full">
-              <p className="text-xs text-start mt-6 font-semibold text-gray-600">
-                Link Text
-              </p>
-              <input
-                value={websiteData?.navbar?.linkText3}
-                type="text"
-                id="linkText3"
-                class="mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                placeholder="Vison"
-                required
-                onChange={(e) => handleInputChange("linkText3", e.target.value)}
-              />
-            </div>
-            <div className="w-full">
-              <p className="text-xs text-start mt-6 font-semibold text-gray-600">
-                Link Text
-              </p>
-              <input
-                value={websiteData?.navbar?.linkText4}
-                type="text"
-                id="linkText4"
-                class="mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                placeholder="CV"
-                required
-                onChange={(e) => handleInputChange("linkText4", e.target.value)}
-              />
-            </div>
-            <div className="w-full">
-              <p className="text-xs text-start mt-6 font-semibold text-gray-600">
-                Link Text
-              </p>
-              <input
-                value={websiteData?.navbar?.linkText5}
-                type="text"
-                id="linkText5"
-                class="mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                placeholder="Connect"
-                required
-                onChange={(e) => handleInputChange("linkText5", e.target.value)}
-              />
-            </div>
+            {websiteData?.navbar?.links?.map((link, index) => (
+              <div className="w-full" key={index}>
+                <p className="text-xs text-start mt-6 font-semibold text-gray-600">
+                  Link Text
+                </p>
+                <input
+                  value={link}
+                  type="text"
+                  id={`linkText${index + 1}`}
+                  className="mt-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5"
+                  placeholder={link}
+                  required
+                  onChange={(e) => handleLinkTextChange(index, e.target.value)}
+                />
+              </div>
+            ))}
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">Button Text</p>

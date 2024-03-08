@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+
 const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
 
-function Login() {
+function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
     },
@@ -22,22 +27,18 @@ function Login() {
       try {
         setLoading(true);
         const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/api/auth`,
+          `${process.env.REACT_APP_BASE_URL}/api/auth/register`,
           values
         );
-        console.log(response.data); // Handle successful login
-        toast.success("Login successfull");
-        localStorage.setItem("SI_HER", JSON.stringify(response.data));
-        navigate("/home");
+        toast.success("Registration successfull");
         setLoading(false);
+        navigate("/auth/login");
       } catch (error) {
-        console.error(error);
         setLoading(false);
         if (error.response.status === 400) {
           toast.error(error.response.data);
-          return;
         }
-
+        console.error(error);
         toast.error("Server error.Please try again later");
       }
     },
@@ -56,12 +57,62 @@ function Login() {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
+              Create your account
             </h1>
             <form
               className="space-y-4 md:space-y-6"
               onSubmit={formik.handleSubmit}
             >
+              <div>
+                <label
+                  htmlFor="firstName"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  className={`${
+                    formik.errors.firstName && formik.touched.firstName
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } bg-gray-50 border text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                  placeholder="First Name"
+                  {...formik.getFieldProps("firstName")}
+                />
+                {formik.errors.firstName && formik.touched.firstName && (
+                  <p className="text-red-500 text-xs mt-1">
+                    *{formik.errors.firstName}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="lastName"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  className={`${
+                    formik.errors.lastName && formik.touched.lastName
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } bg-gray-50 border text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                  placeholder="Last Name"
+                  {...formik.getFieldProps("lastName")}
+                />
+                {formik.errors.lastName && formik.touched.lastName && (
+                  <p className="text-red-500 text-xs mt-1">
+                    *{formik.errors.lastName}
+                  </p>
+                )}
+              </div>
               <div>
                 <label
                   htmlFor="email"
@@ -112,33 +163,6 @@ function Login() {
                   </p>
                 )}
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-[#e11d48] hover:underline dark:text-primary-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
               <button
                 disabled={loading}
                 type="submit"
@@ -165,15 +189,15 @@ function Login() {
                     <span class="sr-only">Loading...</span>
                   </div>
                 )}
-                <p> Sign In</p>
+                <p> Sign up</p>
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
+                Already have an account?{" "}
                 <Link
-                  to="/auth/register"
+                  to="/auth/login"
                   className="font-medium text-[#e11d48] hover:underline dark:text-primary-500"
                 >
-                  Sign up
+                  Sign in
                 </Link>
               </p>
             </form>
@@ -184,4 +208,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
