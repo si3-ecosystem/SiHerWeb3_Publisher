@@ -50,13 +50,13 @@ function FileUpload({ image, handleDeleteImage, handleAddImage }) {
             alt="image description"
           />
         </a>
-        {hovered && (
+        {/* {hovered && (
           <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="text-white text-center" onClick={handleBoxClick}>
               <p className="text-xs">UPDATE IMAGE</p>
             </div>
           </div>
-        )}
+        )} */}
       </figure>
     </div>
   );

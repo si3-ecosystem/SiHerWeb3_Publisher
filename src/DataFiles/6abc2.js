@@ -1,5 +1,6 @@
 let navbar = {
-  logo: "/eye_logo.png",
+  // logo: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
+  logo: { path: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`, id: null },
   imageAltText: "logo",
   websiteName: "SI HER",
   links: ["VALUE", "MY MEDIA", "VISION", "CV", "CONNECT", "LOGIN"],
@@ -34,14 +35,12 @@ let landing = {
       title: "Community Affiliations",
       text: "Si Her, WeDAO Latam, EcstaSHE, CryptoFemale, Web3 Ladies",
     },
-    // ,{
-    //   Region: "Latin America",
-    //   "Web3 Category": "Web3 Founder",
-    //   "Organization Affiliations": "Web3 Founder",
-    //   "Community Affiliations": "Crypto Female, Web 3 Ladies, Web 3 Kirgizstan",
-    // }
   ],
-  userimg: "https://kara.siher.eth.limo/images/karafuture.png",
+  userimg: {
+    path: "https://kara.siher.eth.limo/images/karafuture.png",
+    id: null,
+  },
+  // userimg: "https://kara.siher.eth.limo/images/karafuture.png",
   name: "Kara Howard",
   pronoun: "SHE/HER",
   marquee: [
@@ -57,7 +56,11 @@ let value = {
   description:
     "My career began as an Equity Research analyst on Wall St. I started the MBA program at NYU in the Fall of 2008, right as the market crashed, with Occupy Wall St. protests happening outside our campus doors. As often happens, times of crises create opportunity and I shifted my career focus from finance to marketing & entrepreneurship. I began my entrepreneurial journey with ups and downs and great learning - most importantly, discovering my passion and purpose in supporting women in elevating their voices and professional and personal success. I have led and participated in women-related communities in investing, startups, technology, AI, futurism, product and data science. I have placed over 350 women in speaking opportunities and experience shared value and fulfillment when I see women stepping into their full potential. I bring the value of ten years in finance, and ten years of community architecting & growth marketing, to Si Her as it`s platform creator. And my exploration in Equity Research continues.",
   TVName: "SI HER TV",
-  video: "https://docs.material-tailwind.com/demo.mp4",
+  video: {
+    path: "https://docs.material-tailwind.com/demo.mp4",
+    id: null,
+  },
+  // video: "https://docs.material-tailwind.com/demo.mp4",
   links: [
     {
       title: "WE ARE SI3",
@@ -117,39 +120,39 @@ let available = {
   marque: [
     {
       heading: "speaking",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "Advising",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "Collabs",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "speaking",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "Advising",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "Collabs",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "speaking",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "Advising",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
     {
       heading: "Collabs",
-      image: "eye_logo.png",
+      image: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`,
     },
   ],
   description:
@@ -164,7 +167,7 @@ let available = {
     hide: false,
   },
   email: {
-    url: "kara@si3.space",
+    address: "kara@si3.space",
     hide: false,
   },
 };

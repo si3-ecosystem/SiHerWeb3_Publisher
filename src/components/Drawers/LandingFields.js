@@ -6,29 +6,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleWebsiteData } from "../../reducers/contentReducer";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { FaCirclePlus } from "react-icons/fa6";
+import { handleDeleteFile, handleUpload } from "../../utils/fileUploader";
 function LandingFields({ toggleDrawer }) {
   const { websiteData } = useSelector((state) => state.content);
   const [openIndex, setOpenIndex] = useState(null);
+  const [imageLoading, setImageLoading] = useState("");
 
   const toggleAccordion = (index) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
   const dispatch = useDispatch();
-  const handleDeleteImage = () => {
-    const updatedLandingData = { ...websiteData.landing };
-    updatedLandingData.userimg = null;
-    console.log(updatedLandingData);
+  const handleDeleteImage = async () => {
+    setImageLoading("File deleting. Please wait...");
+    if (websiteData?.landing?.userimg?.id) {
+      await handleDeleteFile(websiteData.landing.userimg.id);
+    }
+    const updatedLandingData = {
+      ...websiteData.landing,
+      userimg: { path: null, id: null },
+    };
     dispatch(
-      handleWebsiteData({ ...websiteData, landing: updatedLandingData })
+      handleWebsiteData({
+        ...websiteData,
+        landing: updatedLandingData,
+      })
     );
+    setImageLoading("");
   };
-  const handleAddImage = (e) => {
+  const handleAddImage = async (e) => {
     if (e.target.files.length > 0) {
+      setImageLoading("  Uploading image. Please wait...");
+      let result = await handleUpload(e.target.files[0], "image");
       const updatedLandingData = { ...websiteData.landing };
-      updatedLandingData.userimg = e.target.files[0];
+      updatedLandingData.userimg = { path: result?.imageUrl, id: result?._id };
       dispatch(
         handleWebsiteData({ ...websiteData, landing: updatedLandingData })
       );
+      setImageLoading("");
     }
   };
   const handleInputChange = (fieldName, value) => {
@@ -326,32 +340,45 @@ function LandingFields({ toggleDrawer }) {
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold mb-4">Image</p>
-            {websiteData?.landing?.userimg ? (
-              <FileUpload
-                image={websiteData?.landing?.userimg}
-                handleDeleteImage={handleDeleteImage}
-                handleAddImage={handleAddImage}
-              />
-            ) : (
-              <div className="flex items-center justify-center w-full mt-4">
-                <label
-                  htmlFor="dropzone-file"
-                  className="flex flex-col items-center justify-center w-full h-24 border border-[#E5E5EA] border-dashed rounded-lg cursor-pointer  hover:bg-[#fceed966] hover:border-[#F6D4A0] dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            {imageLoading ? (
+              <div className="mt-5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                <div
+                  className="bg-blue-600 text-xs font-medium text-blue-100 text-center px-1 py-2 leading-none rounded-full animate-pulse"
+                  style={{ width: "65%" }}
                 >
-                  <div className="flex items-center justify-center pt-5 pb-6">
-                    <IoIosAddCircle className="text-gray-500" />
-                    <p className="ms-1 text-xs text-gray-500 dark:text-gray-400">
-                      ADD AN IMAGE
-                    </p>
-                  </div>
-                  <input
-                    id="dropzone-file"
-                    type="file"
-                    className="hidden"
-                    onChange={handleAddImage}
-                  />
-                </label>
+                  {imageLoading}
+                </div>
               </div>
+            ) : (
+              <>
+                {websiteData?.landing?.userimg?.path ? (
+                  <FileUpload
+                    image={websiteData?.landing?.userimg?.path}
+                    handleDeleteImage={handleDeleteImage}
+                    handleAddImage={handleAddImage}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center w-full mt-4">
+                    <label
+                      htmlFor="dropzone-file"
+                      className="flex flex-col items-center justify-center w-full h-24 border border-[#E5E5EA] border-dashed rounded-lg cursor-pointer  hover:bg-[#fceed966] hover:border-[#F6D4A0] dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                    >
+                      <div className="flex items-center justify-center pt-5 pb-6">
+                        <IoIosAddCircle className="text-gray-500" />
+                        <p className="ms-1 text-xs text-gray-500 dark:text-gray-400">
+                          ADD AN IMAGE
+                        </p>
+                      </div>
+                      <input
+                        id="dropzone-file"
+                        type="file"
+                        className="hidden"
+                        onChange={handleAddImage}
+                      />
+                    </label>
+                  </div>
+                )}
+              </>
             )}
           </div>
           <div className="flex flex-col items-start p-4 mt-4">

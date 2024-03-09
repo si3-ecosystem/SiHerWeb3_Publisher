@@ -287,7 +287,7 @@ function AvailableFields({ toggleDrawer }) {
             <p className="text-xs font-semibold text-gray-600">Email</p>
             <div className="w-full">
               <input
-                value={websiteData?.available?.email?.url}
+                value={websiteData?.available?.email?.address}
                 type="text"
                 id="email"
                 class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "

@@ -26,15 +26,15 @@ function Navbar({ setIsOpen }) {
       <nav className={`nav ${checkClass} `}>
         <div className="nav_wrapper">
           <div className="logo">
-            {websiteData?.navbar?.logo &&
-              (typeof websiteData?.navbar?.logo === "object" ? (
+            {websiteData?.navbar?.logo?.path &&
+              (typeof websiteData?.navbar?.logo?.path === "object" ? (
                 <img
-                  src={URL.createObjectURL(websiteData?.navbar?.logo)}
+                  src={URL.createObjectURL(websiteData?.navbar?.logo?.path)}
                   alt={websiteData?.navbar?.imageAltText}
                 />
               ) : (
                 <img
-                  src={websiteData?.navbar?.logo}
+                  src={websiteData?.navbar?.logo?.path}
                   alt={websiteData?.navbar?.imageAltText}
                 />
               ))}

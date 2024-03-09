@@ -21,14 +21,17 @@ import "react-modern-drawer/dist/index.css";
 import { IFrame } from "../components/IFrame/iframe";
 import DynamicComponent from "../components/DynamicComponent/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { handleWebsiteData } from "../reducers/contentReducer.js";
+import {
+  handleNewWebpage,
+  handleWebsiteData,
+} from "../reducers/contentReducer.js";
 import { Link, useNavigate } from "react-router-dom";
 import { cssPaths } from "../utils/constants.js";
 import axios from "axios";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosInstance.js";
 function Home(props) {
-  const { websiteData } = useSelector((state) => state.content);
+  const { websiteData, isNewWebpage } = useSelector((state) => state.content);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [getLoading, setGetLoading] = useState(false);
@@ -55,10 +58,12 @@ function Home(props) {
       console.log(data);
       if (!data?.webpage || Object.keys(data.webpage).length === 0) {
         dispatch(handleWebsiteData(websiteContent));
+
         setGetLoading(false);
         return;
       }
       setGetLoading(false);
+      dispatch(handleNewWebpage(false));
       dispatch(handleWebsiteData(data?.webpage));
     } catch (error) {
       setGetLoading(false);
@@ -78,16 +83,40 @@ function Home(props) {
   const handlePublish = async () => {
     try {
       setLoading(true);
-      const { data } = await axiosInstance.post(`/api/webpage`, websiteData);
-      console.log(data);
+      const response = isNewWebpage
+        ? await axiosInstance.post(`/api/webpage`, websiteData)
+        : await axiosInstance.put(`/api/webpage`, websiteData);
       setLoading(false);
-      toast.success("Webpage created successfully");
+      toast.success(
+        `Webpage ${isNewWebpage ? "created" : "updated"} successfully`
+      );
     } catch (error) {
       console.log(error);
       setLoading(false);
-      toast.error("Server error.Please try again!");
+      toast.error(
+        error.response?.status === 400
+          ? error.response.data
+          : "Server error. Please try again!"
+      );
     }
   };
+
+  // const handlePublish = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const { data } = await axiosInstance.post(`/api/webpage`, websiteData);
+  //     console.log(data);
+  //     setLoading(false);
+  //     toast.success("Webpage created successfully");
+  //   } catch (error) {
+  //     console.log(error);
+  //     if (error.response.status === 400) {
+  //       toast.error(error.response.data);
+  //     }
+  //     setLoading(false);
+  //     toast.error("Server error.Please try again!");
+  //   }
+  // };
   const initialContent = `<!DOCTYPE html><html><head></head><body><div id="root1"></div></body></html>`;
   return (
     <div className="App">

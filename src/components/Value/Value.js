@@ -9,12 +9,12 @@ import { useSelector } from "react-redux";
 function Value({ setIsOpen }) {
   const { websiteData } = useSelector((state) => state.content);
   const renderVideo = () => {
-    if (typeof websiteData?.value?.video === "object") {
-      const videoUrl = URL.createObjectURL(websiteData?.value?.video);
+    if (typeof websiteData?.value?.video?.path === "object") {
+      const videoUrl = URL.createObjectURL(websiteData?.value?.video?.path);
       console.log(videoUrl);
       return videoUrl;
     } else {
-      return websiteData?.value?.video;
+      return websiteData?.value?.video?.path;
     }
   };
   return (
@@ -43,8 +43,9 @@ function Value({ setIsOpen }) {
                 />
               </small>
             </div>
-            <div className="video">
-              {/* <iframe
+            {websiteData?.value?.video?.path && (
+              <div className="video">
+                {/* <iframe
                 src={websiteData?.value?.video}
                 frameborder="0"
                 allowfullscreen
@@ -53,11 +54,15 @@ function Value({ setIsOpen }) {
                 width="100"
                 height="100"
               ></iframe> */}
-              <video className="h-full w-full rounded-lg" controls>
-                <source src={renderVideo()} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
+                <video className="h-full w-full rounded-lg" controls>
+                  <source
+                    src={websiteData?.value?.video?.path}
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            )}
           </div>
         </div>
 

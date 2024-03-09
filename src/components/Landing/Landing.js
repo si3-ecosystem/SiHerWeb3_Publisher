@@ -6,27 +6,6 @@ import arrow from "../../Images/arrow-right.svg";
 import { useSelector } from "react-redux";
 function Landing({ setIsOpen }) {
   const { websiteData } = useSelector((state) => state.content);
-  console.log(websiteData);
-  // const [hideState, sethide] = useState(false);
-  // function handelHide() {
-  //   sethide((hideState) => !hideState);
-  // }
-  //   const generateCategory = () => {
-  //     const elements = [];
-
-  //     for (let i = 0; i < items.length; i++) {
-
-  //     }
-  // for (const category in allContent.categories) {
-  //   if (allContent.categories.hasOwnProperty(category)) {
-  //     const value = allContent.categories[category];
-  //     console.log(`${category}: ${value}`);
-  //     elements.push(<li key={i}>{items[i]}</li>);
-  //   }
-  // }
-  //     return elements;
-  //   };
-  // let contentss = allContent.heading.split("SPLIT");
 
   return (
     <div
@@ -116,14 +95,14 @@ function Landing({ setIsOpen }) {
         </div>
 
         <div className="landing_img">
-          {websiteData?.landing?.userimg &&
-            (typeof websiteData?.landing?.userimg === "object" ? (
+          {websiteData?.landing?.userimg?.path &&
+            (typeof websiteData?.landing?.userimg?.path === "object" ? (
               <img
-                src={URL.createObjectURL(websiteData?.landing?.userimg)}
+                src={URL.createObjectURL(websiteData?.landing?.userimg?.path)}
                 alt="image"
               />
             ) : (
-              <img src={websiteData?.landing?.userimg} alt="image" />
+              <img src={websiteData?.landing?.userimg?.path} alt="image" />
             ))}
 
           {/* <img src={websiteData?.landing?.userimg} /> */}

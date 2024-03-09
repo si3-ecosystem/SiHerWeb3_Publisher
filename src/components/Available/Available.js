@@ -114,8 +114,8 @@ function Available({ setIsOpen }) {
               {/* <a href="https://www.linkedin.com/in/decentralizing/">
               kara@si-her.live
             </a> */}
-              <a href={"mailto:" + websiteData?.available?.email?.url}>
-                {websiteData?.available?.email?.url}
+              <a href={"mailto:" + websiteData?.available?.email?.address}>
+                {websiteData?.available?.email?.address}
               </a>
             </div>
           ) : (
