@@ -36,6 +36,7 @@ function Home(props) {
   const [loading, setLoading] = useState(false);
   const [getLoading, setGetLoading] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth - 30);
+  console.log(screenWidth);
   const [isOpen, setIsOpen] = React.useState("");
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
@@ -100,23 +101,6 @@ function Home(props) {
       );
     }
   };
-
-  // const handlePublish = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const { data } = await axiosInstance.post(`/api/webpage`, websiteData);
-  //     console.log(data);
-  //     setLoading(false);
-  //     toast.success("Webpage created successfully");
-  //   } catch (error) {
-  //     console.log(error);
-  //     if (error.response.status === 400) {
-  //       toast.error(error.response.data);
-  //     }
-  //     setLoading(false);
-  //     toast.error("Server error.Please try again!");
-  //   }
-  // };
   const initialContent = `<!DOCTYPE html><html><head></head><body><div id="root1"></div></body></html>`;
   return (
     <div className="App">
@@ -266,7 +250,7 @@ function Home(props) {
       ) : (
         <>
           <div className="flex mt-40 px-5  bg-[#d5d5e3]">
-            <div className="w-full">
+            <div className={`${!isOpen ? "w-full" : "w-2/3"}`}>
               {/* <Frame
             // initialContent={initialContent}
             mountTarget="#root1"
@@ -276,10 +260,12 @@ function Home(props) {
               overflow: "visible",
             }}
           > */}
+              {console.log(isOpen && screenWidth - 450)}
               <IFrame
                 // width={screenWidth}
                 // setScreenWidth={setScreenWidth}
-                width={!isOpen ? `${screenWidth}px` : "910px"}
+                width="100%" //910px
+                // width={!isOpen ? `${screenWidth}px` : `${screenWidth - 400}px`} //910px
                 height="775"
                 cssFiles={[
                   cssPaths.index,
