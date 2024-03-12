@@ -19,7 +19,7 @@ function Navbar({ setIsOpen }) {
 
   return (
     <div
-      className="border hover:border-gray-400 hover:cursor-pointer"
+      className="hover_div"
       // onClick={() => setIsOpen("navbar")}
       onClick={() => setIsOpen && setIsOpen("navbar")}
     >
@@ -42,14 +42,14 @@ function Navbar({ setIsOpen }) {
             <h1>{websiteData?.navbar?.websiteName}</h1>
           </div>
           <div className="menus" onClick={handelNav}>
-            <ul>
+            <ul style={{ pointerEvents: "none" }}>
               {websiteData?.navbar?.links?.map((item, index) => {
                 return (
                   <li>
                     <a
                       href={`#${item.toString().toLowerCase()}`}
                       key={index}
-                      className="text-red-500"
+                      className="text-red-500 "
                     >
                       {item}
                     </a>

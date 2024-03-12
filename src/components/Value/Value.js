@@ -66,7 +66,7 @@ function Value({ setIsOpen }) {
           </div>
         </div>
 
-        <div className="value_links">
+        <div className="value_links" style={{ pointerEvents: "none" }}>
           {websiteData?.value?.links?.map((value, index) => (
             <a href={value?.link}> {value.title}</a>
           ))}
@@ -75,7 +75,9 @@ function Value({ setIsOpen }) {
         <a href="">Diversity in the New Economy</a> */}
         </div>
         <div className="pay_btns">
-          <button className="support">{websiteData?.value?.buttonText}</button>
+          <button className="support" style={{ pointerEvents: "none" }}>
+            {websiteData?.value?.buttonText}
+          </button>
           {/* <button className="Rupay">
           <img src={rupay} alt="" />
         </button> */}

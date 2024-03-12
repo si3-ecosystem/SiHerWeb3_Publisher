@@ -4,17 +4,12 @@
   /* margin: 0 auto; */
 }
 @media only screen and (min-width: 2000px) {
-  .App{
-
+  .App {
     margin: 0 auto;
   }
-
-
 }
-body{
-  
-overflow-x: hidden;
-
+body {
+  overflow-x: hidden;
 }
 .App-logo {
   height: 40vmin;
@@ -61,25 +56,28 @@ background: linear-gradient(187.3deg, #F5F5F5 5.53%, #A7F8AF 24.96%, #B4E6F6 37.
 
 } */
 
-a{
+a {
   text-decoration: none;
   color: #282c34;
 }
-li,ul{
+li,
+ul {
   list-style-type: none;
 }
 html {
   scroll-behavior: smooth;
 }
-body{
+body {
   overflow-x: hidden;
 }
-
+.hover_div:hover {
+  border: 1px solid rgb(161, 159, 159);
+  /* cursor: pointer; */
+}
 @font-face {
   font-family: Clash Display Variable;
-  src: url('../ClashDisplay-Variable.ttf');
+  src: url("../ClashDisplay-Variable.ttf");
 }
 /* *{
   font-family: Clash Display Variable !important;
 } */
-

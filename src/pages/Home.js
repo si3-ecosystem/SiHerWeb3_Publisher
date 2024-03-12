@@ -27,42 +27,33 @@ import {
 } from "../reducers/contentReducer.js";
 import { Link, useNavigate } from "react-router-dom";
 import { cssPaths } from "../utils/constants.js";
-import axios from "axios";
 import toast from "react-hot-toast";
 import axiosInstance from "../utils/axiosInstance.js";
-function Home(props) {
+function Home() {
   const { websiteData, isNewWebpage } = useSelector((state) => state.content);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [getLoading, setGetLoading] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth - 30);
+  const [screenWidth, setScreenWidth] = useState("100%");
   console.log(screenWidth);
+  const [mode, setMode] = useState("Publish");
   const [isOpen, setIsOpen] = React.useState("");
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const handleToggleView = (viewSize) => {
+    setScreenWidth(viewSize);
+  };
   const getWebsiteContent = async () => {
     try {
       setGetLoading(true);
       const { data } = await axiosInstance.get(`/api/webpage`);
-      console.log(data);
       if (!data?.webpage || Object.keys(data.webpage).length === 0) {
         dispatch(handleWebsiteData(websiteContent));
-
         setGetLoading(false);
         return;
       }
+      setMode("Update Changes");
       setGetLoading(false);
       dispatch(handleNewWebpage(false));
       dispatch(handleWebsiteData(data?.webpage));
@@ -101,7 +92,6 @@ function Home(props) {
       );
     }
   };
-  const initialContent = `<!DOCTYPE html><html><head></head><body><div id="root1"></div></body></html>`;
   return (
     <div className="App">
       <nav className="border border-b-gray-400 fixed w-full top-0 bg-white z-10">
@@ -168,9 +158,48 @@ function Home(props) {
               </div>
               <div class="flex items-center justify-center w-full sm:ml-6">
                 <div class="flex items-center space-x-4">
-                  <HiOutlineComputerDesktop className="cursor-pointer text-xl" />
-                  <SlScreenTablet className="cursor-pointer text-md" />
-                  <PiDeviceTabletCameraThin className="cursor-pointer text-xl" />
+                  <div className="flex flex-col">
+                    <HiOutlineComputerDesktop
+                      onClick={() => handleToggleView("100%")}
+                      className="cursor-pointer text-xl relative"
+                    />
+                    {screenWidth === "100%" && (
+                      <div
+                        style={{
+                          borderBottom: "3px solid #EEA941",
+                          paddingBottom: "5px",
+                        }}
+                      ></div>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <SlScreenTablet
+                      onClick={() => handleToggleView("70%")}
+                      className="cursor-pointer text-xl relative"
+                    />
+                    {screenWidth === "70%" && (
+                      <div
+                        style={{
+                          borderBottom: "3px solid #EEA941",
+                          paddingBottom: "5px",
+                        }}
+                      ></div>
+                    )}
+                  </div>
+                  <div className="flex flex-col">
+                    <PiDeviceTabletCameraThin
+                      onClick={() => handleToggleView("40%")}
+                      className="cursor-pointer text-xl relative"
+                    />
+                    {screenWidth === "40%" && (
+                      <div
+                        style={{
+                          borderBottom: "3px solid #EEA941",
+                          paddingBottom: "5px",
+                        }}
+                      ></div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -213,7 +242,8 @@ function Home(props) {
                         <span class="sr-only">Loading...</span>
                       </div>
                     )}
-                    <p>Publish</p>
+
+                    <p>{mode}</p>
 
                     <GoDotFill class="text-yellow-600 ms-1" />
                   </button>
@@ -249,18 +279,18 @@ function Home(props) {
         </div>
       ) : (
         <>
-          <div className="flex mt-40 px-5  bg-[#d5d5e3]">
-            <div className={`${!isOpen ? "w-full" : "w-2/3"}`}>
-              {/* <Frame
-            // initialContent={initialContent}
-            mountTarget="#root1"
-            style={{
-              width: !isOpen ? "1240px" : "910px",
-              height: iFrameHeight,
-              overflow: "visible",
-            }}
-          > */}
-              {console.log(isOpen && screenWidth - 450)}
+          <div
+            className={`flex items-center justify-center mt-40 bg-[#d5d5e3] ${
+              isOpen
+                ? "w-[74%] transition-width duration-500"
+                : "w-full transition-width duration-500"
+            }`}
+          >
+            <div
+              className={`transition-width duration-500 ${
+                !isOpen ? `w-[${screenWidth}] ` : `w-[${screenWidth}]`
+              }`}
+            >
               <IFrame
                 // width={screenWidth}
                 // setScreenWidth={setScreenWidth}
@@ -294,6 +324,7 @@ function Home(props) {
               direction="right"
               size={350}
               enableOverlay={false}
+              // zIndex={50}
             >
               <DynamicComponent isOpen={isOpen} toggleDrawer={toggleDrawer} />
             </Drawer>

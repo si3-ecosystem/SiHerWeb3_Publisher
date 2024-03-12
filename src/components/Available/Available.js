@@ -35,12 +35,15 @@ function Available({ setIsOpen }) {
 
         <div className="aval_btn">
           <p>
-            This site has been built by <a href="https://www.si3.space/">Si3</a>{" "}
+            This site has been built by{" "}
+            <a href="https://www.si3.space/" style={{ pointerEvents: "none" }}>
+              Si3
+            </a>{" "}
             in support of the decentralized and democratized web.
           </p>
         </div>
 
-        <div className="footer">
+        <div className="footer" style={{ pointerEvents: "none" }}>
           {!websiteData?.available?.linkedin?.hide ? (
             <div className="footer_menu linken">
               <svg
