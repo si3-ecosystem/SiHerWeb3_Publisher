@@ -283,13 +283,12 @@ function Home() {
             className={`flex items-center justify-center mt-40 bg-[#d5d5e3] ${
               isOpen
                 ? "w-[74%] transition-width duration-500"
-                : "w-full transition-width duration-500"
+                : "w-[100%] transition-width duration-500"
             }`}
           >
             <div
-              className={`transition-width duration-500 ${
-                !isOpen ? `w-[${screenWidth}] ` : `w-[${screenWidth}]`
-              }`}
+              className={`transition-width duration-500`}
+              style={{ width: `${screenWidth}` }}
             >
               <IFrame
                 // width={screenWidth}
