@@ -14,7 +14,7 @@
   align-items: center;
   display: flex;
   justify-content: space-around;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255);
   backdrop-filter: blur(19.25px);
 }
 .nav {
@@ -28,7 +28,6 @@
   display: flex;
   justify-content: space-between;
   width: 92%;
-  padding-right: 5rem;
 }
 .nav .logo h1 {
   /* width: 103px; */
@@ -65,19 +64,10 @@
   color: #0e1216;
 }
 
-.nav .connect-btn button {
-  border-radius: 20px;
-  padding: 10px 12px;
-  border: none;
-
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  text-transform: uppercase;
-
-  color: #0e1216;
+.drop-down {
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  color: black;
 }
 
 .menu-toggler {

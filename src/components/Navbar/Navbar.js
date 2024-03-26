@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import "./navbar.css";
-import "../../CSS/App.css";
-import "../../CSS/responsive.css";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react"
+import { useState } from "react"
+import "./navbar.css"
+import "../../CSS/App.css"
+import "../../CSS/responsive.css"
+import { useSelector } from "react-redux"
 function Navbar({ setIsOpen }) {
-  const { websiteData } = useSelector((state) => state.content);
-  const [btnstate, setbtn] = useState(false);
+  const { websiteData } = useSelector((state) => state.content)
+  const [btnstate, setbtn] = useState(false)
   function handelClick() {
-    setbtn((btnstate) => !btnstate);
+    setbtn((btnstate) => !btnstate)
   }
 
   function handelNav() {
-    setbtn((btnstate) => false);
+    setbtn((btnstate) => false)
   }
 
-  let checkClass = btnstate ? "active" : null;
+  let checkClass = btnstate ? "active" : null
 
   return (
     <div
@@ -26,19 +26,6 @@ function Navbar({ setIsOpen }) {
       <nav className={`nav ${checkClass} `}>
         <div className="nav_wrapper">
           <div className="logo">
-            {websiteData?.navbar?.logo?.path &&
-              (typeof websiteData?.navbar?.logo?.path === "object" ? (
-                <img
-                  src={URL.createObjectURL(websiteData?.navbar?.logo?.path)}
-                  alt={websiteData?.navbar?.imageAltText}
-                />
-              ) : (
-                <img
-                  src={websiteData?.navbar?.logo?.path}
-                  alt={websiteData?.navbar?.imageAltText}
-                />
-              ))}
-
             <h1>{websiteData?.navbar?.websiteName}</h1>
           </div>
           <div className="menus" onClick={handelNav}>
@@ -54,12 +41,16 @@ function Navbar({ setIsOpen }) {
                       {item}
                     </a>
                   </li>
-                );
+                )
               })}
+              <div>
+                <select className="drop-down">
+                  <option selected disabled>
+                    Select Language
+                  </option>
+                </select>
+              </div>
             </ul>
-          </div>
-          <div className="connect-btn">
-            <button>{websiteData?.navbar?.buttonText}</button>
           </div>
           <div className="menu-toggler" onClick={handelClick}>
             <span></span>
@@ -69,7 +60,7 @@ function Navbar({ setIsOpen }) {
         </div>
       </nav>
     </div>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
