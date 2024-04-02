@@ -44,6 +44,11 @@ function MyValueFields({ toggleDrawer }) {
       setImageLoading("");
     }
   };
+  const handleInputVisionChange = (fieldName, value) => {
+    const updatedVisionData = { ...websiteData.vision };
+    updatedVisionData[fieldName] = value;
+    dispatch(handleWebsiteData({ ...websiteData, vision: updatedVisionData }));
+  };
   const handleInputChange = (fieldName, value) => {
     const updatedMyValueData = { ...websiteData.value };
     updatedMyValueData[fieldName] = value;
@@ -88,7 +93,7 @@ function MyValueFields({ toggleDrawer }) {
       <div className=" overflow-y-auto max-h-screen">
         <form className="mb-10">
           <div className="flex flex-col items-start p-4 mt-4">
-            <p className="text-xs font-semibold text-gray-600">Title</p>
+            <p className="text-xs font-semibold text-gray-600">Value Title</p>
             <div className="w-full">
               <input
                 value={websiteData?.value?.title}
@@ -102,7 +107,9 @@ function MyValueFields({ toggleDrawer }) {
             </div>
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
-            <p className="text-xs font-semibold text-gray-600">Description</p>
+            <p className="text-xs font-semibold text-gray-600">
+              Value Description
+            </p>
             <div className="w-full">
               <textarea
                 value={websiteData?.value?.description}
@@ -114,6 +121,41 @@ function MyValueFields({ toggleDrawer }) {
                 rows={8}
                 onChange={(e) =>
                   handleInputChange("description", e.target.value)
+                }
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-start p-4 mt-4">
+            <p className="text-xs font-semibold text-gray-600">Vision Title</p>
+            <div className="w-full">
+              <input
+                value={websiteData?.vision?.title}
+                type="text"
+                id="title"
+                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                placeholder="Image alt text"
+                required
+                onChange={(e) =>
+                  handleInputVisionChange("title", e.target.value)
+                }
+              />
+            </div>
+          </div>
+          <div className="flex flex-col items-start p-4 mt-4">
+            <p className="text-xs font-semibold text-gray-600">
+              Vision Description
+            </p>
+            <div className="w-full">
+              <textarea
+                value={websiteData?.vision?.description}
+                type="text"
+                id="description"
+                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                placeholder="SI HER"
+                required
+                rows={8}
+                onChange={(e) =>
+                  handleInputVisionChange("description", e.target.value)
                 }
               />
             </div>
@@ -230,7 +272,7 @@ function MyValueFields({ toggleDrawer }) {
                             >
                               <div className="flex flex-col items-start p-4 mt-4">
                                 <p className="text-xs font-semibold text-gray-600">
-                                  Label
+                                  Title
                                 </p>
                                 <div className="w-full">
                                   <input
@@ -250,7 +292,7 @@ function MyValueFields({ toggleDrawer }) {
                                   />
                                 </div>
                               </div>
-                              <div className="flex flex-col items-start p-4 mt-4">
+                              {/* <div className="flex flex-col items-start p-4 mt-4">
                                 <p className="text-xs font-semibold text-gray-600">
                                   Link
                                 </p>
@@ -271,7 +313,7 @@ function MyValueFields({ toggleDrawer }) {
                                     }
                                   />
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                           <RiDeleteBinLine

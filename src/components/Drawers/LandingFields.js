@@ -150,7 +150,7 @@ function LandingFields({ toggleDrawer }) {
         </button>
       </div>
       <div className=" overflow-y-auto max-h-screen">
-        <form className="mb-10">
+        <form className="mb-28">
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">Title</p>
             <div className="w-full">
@@ -410,7 +410,7 @@ function LandingFields({ toggleDrawer }) {
             </div>
           </div>
 
-          <div className="flex flex-col items-start p-4 mt-4 mb-20">
+          {/* <div className="flex flex-col items-start p-4 mt-4 mb-20">
             <p className="text-xs font-semibold text-gray-600">Marquee</p>
             {websiteData?.landing?.marquee?.map((item, index) => {
               return (
@@ -438,7 +438,7 @@ function LandingFields({ toggleDrawer }) {
               <FaCirclePlus className="text-[#EEA941] text-lg" />
               <p className="text-sm">Add Marque</p>
             </div>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

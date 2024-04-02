@@ -9,6 +9,7 @@ const contentReducer = createSlice({
   initialState,
   reducers: {
     handleWebsiteData: (state, action) => {
+      console.log(action.payload);
       state.websiteData = action.payload;
     },
     handleNewWebpage: (state, action) => {

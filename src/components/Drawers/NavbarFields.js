@@ -69,8 +69,8 @@ function NavbarFields({ toggleDrawer }) {
         </button>
       </div>
       <div className=" overflow-y-auto max-h-screen">
-        <form className="mb-10">
-          <div className="flex flex-col items-start p-4 mt-16">
+        <form className="mb-28">
+          {/* <div className="flex flex-col items-start p-4 mt-16">
             <p className="text-sm font-semibold">LOGO</p>
             {imageLoading ? (
               <div className="mt-5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
@@ -112,8 +112,8 @@ function NavbarFields({ toggleDrawer }) {
                 )}
               </>
             )}
-          </div>
-          <div className="flex flex-col items-start p-4 mt-4">
+          </div> */}
+          {/* <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">
               Image alt text
             </p>
@@ -130,7 +130,7 @@ function NavbarFields({ toggleDrawer }) {
                 }
               />
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">Website Name</p>
             <div className="w-full">
@@ -147,7 +147,7 @@ function NavbarFields({ toggleDrawer }) {
               />
             </div>
           </div>
-          <div className="flex flex-col items-start p-4 mt-4">
+          <div className="flex flex-col items-start p-4 mt-4 mb-8">
             <p className="text-xs font-semibold text-gray-600">LINKS</p>
             {websiteData?.navbar?.links?.map((link, index) => (
               <div className="w-full" key={index}>
@@ -166,7 +166,7 @@ function NavbarFields({ toggleDrawer }) {
               </div>
             ))}
           </div>
-          <div className="flex flex-col items-start p-4 mt-4">
+          {/* <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">Button Text</p>
             <div className="w-full">
               <input
@@ -181,8 +181,8 @@ function NavbarFields({ toggleDrawer }) {
                 }
               />
             </div>
-          </div>
-          <div className="flex flex-col items-start p-4 mt-4 mb-20">
+          </div> */}
+          {/* <div className="flex flex-col items-start p-4 mt-4 mb-20">
             <p className="text-xs font-semibold text-gray-600">FIXED HEADER</p>
             <div className="flex items-center gap-5">
               <span class="text-xs font-normal text-gray-900 dark:text-gray-300">
@@ -203,7 +203,7 @@ function NavbarFields({ toggleDrawer }) {
                 <div className="relative w-9 h-5 bg-gray-200 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
               </label>
             </div>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>

@@ -11,6 +11,7 @@ import Login from "../pages/Login.js";
 import Preview from "../pages/Preview.js";
 import Register from "../pages/Register.js";
 import { Toaster } from "react-hot-toast";
+import PreviewWebPage from "../components/preview/index.js";
 function App() {
   return (
     <div>
@@ -24,7 +25,7 @@ function App() {
                 <Route path="" element={<PrivateRoutes />}>
                   <Route path="/" element={<Navigate to="/home" />} />
                   <Route path="/home" element={<Home />} />
-                  <Route path="/preview" element={<Preview />} />
+                  <Route path="/preview" element={<PreviewWebPage />} />
                 </Route>
               </Routes>
             </>
