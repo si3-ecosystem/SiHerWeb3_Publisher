@@ -1,132 +1,132 @@
-import "../CSS/App.css";
-import "../CSS/responsive.css";
-import Landing from "../components/Landing/Landing";
-import Value from "../components/Value/Value";
-import Vision from "../components/Vision/Vision";
-import CV from "../components/CV/CV";
-import Available from "../components/Available/Available";
-import Navbar from "../components/Navbar/Navbar";
-import { GrHomeRounded } from "react-icons/gr";
-import React, { Component, useEffect, useState } from "react";
-import { HiOutlineComputerDesktop } from "react-icons/hi2";
-import { SlScreenTablet } from "react-icons/sl";
-import { PiDeviceTabletCameraThin } from "react-icons/pi";
-import { IoPlayOutline } from "react-icons/io5";
-import { GoDotFill } from "react-icons/go";
-import Drawer from "react-modern-drawer";
-import Frame from "react-frame-component";
-import websiteContent from "../DataFiles/6abc2.js";
+import "../CSS/App.css"
+import "../CSS/responsive.css"
+import Landing from "../components/Landing/Landing"
+import Value from "../components/Value/Value"
+import Vision from "../components/Vision/Vision"
+import CV from "../components/CV/CV"
+import Available from "../components/Available/Available"
+import Navbar from "../components/Navbar/Navbar"
+import { GrHomeRounded } from "react-icons/gr"
+import React, { Component, useEffect, useState } from "react"
+import { HiOutlineComputerDesktop } from "react-icons/hi2"
+import { SlScreenTablet } from "react-icons/sl"
+import { PiDeviceTabletCameraThin } from "react-icons/pi"
+import { IoPlayOutline } from "react-icons/io5"
+import { GoDotFill } from "react-icons/go"
+import Drawer from "react-modern-drawer"
+import Frame from "react-frame-component"
+import websiteContent from "../DataFiles/6abc2.js"
 //import styles 👇
-import "react-modern-drawer/dist/index.css";
-import { IFrame } from "../components/IFrame/iframe";
-import DynamicComponent from "../components/DynamicComponent/index.js";
-import { useDispatch, useSelector } from "react-redux";
+import "react-modern-drawer/dist/index.css"
+import { IFrame } from "../components/IFrame/iframe"
+import DynamicComponent from "../components/DynamicComponent/index.js"
+import { useDispatch, useSelector } from "react-redux"
 import {
   handleNewWebpage,
   handleWebsiteData,
-} from "../reducers/contentReducer.js";
-import { Link, useNavigate } from "react-router-dom";
-import { cssPaths } from "../utils/constants.js";
-import toast from "react-hot-toast";
-import axiosInstance from "../utils/axiosInstance.js";
-import WebPage from "../components/Webpage/index.js";
-import { Dropdown } from "flowbite-react";
-import { IoIosLogOut } from "react-icons/io";
+} from "../reducers/contentReducer.js"
+import { Link, useNavigate } from "react-router-dom"
+import { cssPaths } from "../utils/constants.js"
+import toast from "react-hot-toast"
+import axiosInstance from "../utils/axiosInstance.js"
+import WebPage from "../components/Webpage/index.js"
+import { Dropdown } from "flowbite-react"
+import { IoIosLogOut } from "react-icons/io"
 function Home() {
-  const navigate = useNavigate();
-  const { websiteData, isNewWebpage } = useSelector((state) => state.content);
-  const [domainLoading, setDomainLoading] = useState(false);
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const [getLoading, setGetLoading] = useState(false);
-  const [screenWidth, setScreenWidth] = useState("100%");
-  const [subdomain, setSubDomain] = useState("");
-  const [isSubDomain, setisSubDomain] = useState("");
-  console.log(isSubDomain);
-  const [mode, setMode] = useState("Publish");
-  const [isOpen, setIsOpen] = React.useState("");
+  const navigate = useNavigate()
+  const { websiteData, isNewWebpage } = useSelector((state) => state.content)
+  const [domainLoading, setDomainLoading] = useState(false)
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
+  const [getLoading, setGetLoading] = useState(false)
+  const [screenWidth, setScreenWidth] = useState("100%")
+  const [subdomain, setSubDomain] = useState("")
+  const [isSubDomain, setisSubDomain] = useState("")
+  console.log(isSubDomain)
+  const [mode, setMode] = useState("Publish")
+  const [isOpen, setIsOpen] = React.useState("")
   const toggleDrawer = () => {
-    setIsOpen((prevState) => !prevState);
-  };
+    setIsOpen((prevState) => !prevState)
+  }
   const handleToggleView = (viewSize) => {
-    setScreenWidth(viewSize);
-  };
+    setScreenWidth(viewSize)
+  }
   const getWebsiteContent = async () => {
     try {
-      setGetLoading(true);
-      const { data } = await axiosInstance.get(`/api/webpage`);
-      console.log(data);
+      setGetLoading(true)
+      const { data } = await axiosInstance.get(`/api/webpage`)
+      console.log(data)
       if (data?.subdomain) {
-        setisSubDomain(data?.subdomain);
+        setisSubDomain(data?.subdomain)
       }
       if (!data?.data) {
         // || Object.keys(data.data).length === 0
-        dispatch(handleWebsiteData(websiteContent));
-        setGetLoading(false);
-        return;
+        dispatch(handleWebsiteData(websiteContent))
+        setGetLoading(false)
+        return
       }
-      setMode("Update");
-      setGetLoading(false);
-      dispatch(handleNewWebpage(false));
-      dispatch(handleWebsiteData(data?.data));
+      setMode("Update")
+      setGetLoading(false)
+      dispatch(handleNewWebpage(false))
+      dispatch(handleWebsiteData(data?.data))
     } catch (error) {
-      setGetLoading(false);
-      console.log(error);
+      setGetLoading(false)
+      console.log(error)
       if (error.response.status === 404) {
-        dispatch(handleWebsiteData(websiteContent));
-        return;
+        dispatch(handleWebsiteData(websiteContent))
+        return
       }
-      toast.error("Server error. Please refresh the page");
+      toast.error("Server error. Please refresh the page")
     }
-  };
+  }
   useEffect(() => {
-    getWebsiteContent();
-  }, []);
+    getWebsiteContent()
+  }, [])
   const AssignDomain = async () => {
     try {
-      setDomainLoading(true);
+      setDomainLoading(true)
       const response = await axiosInstance.post(`/api/subdomain`, {
         subdomain: subdomain,
-      });
-      console.log(response);
-      setDomainLoading(false);
-      toast.success(`Domain assign successfully`);
-      setisSubDomain(subdomain);
+      })
+      console.log(response)
+      setDomainLoading(false)
+      toast.success(`Domain assign successfully`)
+      setisSubDomain(subdomain)
     } catch (error) {
-      console.log(error);
-      setDomainLoading(false);
+      console.log(error)
+      setDomainLoading(false)
       toast.error(
         error.response?.status === 404
           ? "Please publish the webpage before assigning a subdomain."
           : "Server error. Please try again!"
-      );
+      )
     }
-  };
+  }
   const handlePublish = async () => {
     try {
-      setLoading(true);
-      console.log(websiteData);
+      setLoading(true)
+      console.log(websiteData)
       const response = isNewWebpage
         ? await axiosInstance.post(`/api/webpage`, websiteData)
-        : await axiosInstance.put(`/api/webpage`, websiteData);
-      setLoading(false);
+        : await axiosInstance.put(`/api/webpage`, websiteData)
+      setLoading(false)
       toast.success(
         `Webpage ${isNewWebpage ? "created" : "updated"} successfully`
-      );
+      )
     } catch (error) {
-      console.log(error);
-      setLoading(false);
+      console.log(error)
+      setLoading(false)
       toast.error(
         error.response?.status === 400
           ? error.response.data
           : "Server error. Please try again!"
-      );
+      )
     }
-  };
+  }
   const hanbdleLogout = () => {
-    localStorage.removeItem("SI_HER");
-    navigate("/auth/login");
-  };
+    localStorage.removeItem("SI_HER")
+    navigate("/auth/login")
+  }
   return (
     <div className="App">
       <nav className="border border-b-gray-400 fixed w-full top-0 bg-white z-10">
@@ -412,10 +412,10 @@ function Home() {
         <div class="w-full flex justify-center items-center mx-auto absolute top-24 font-serif">
           <h3>Web page url: </h3>
           <a
-            href={`http://${isSubDomain}.${process.env.REACT_APP_SIHER_DOMAIN}`}
+            href={`https://${isSubDomain}.${process.env.REACT_APP_SIHER_DOMAIN}`}
             target="blank"
             className="font-serif text-blue-500 hover:underline ms-3 "
-          >{`http://${isSubDomain}.${process.env.REACT_APP_SIHER_DOMAIN}`}</a>
+          >{`https://${isSubDomain}.${process.env.REACT_APP_SIHER_DOMAIN}`}</a>
         </div>
       ) : (
         <form
@@ -454,8 +454,8 @@ function Home() {
                 placeholder="Assign domain to webpage"
                 value={subdomain}
                 onChange={(e) => {
-                  console.log(e.target.value);
-                  setSubDomain(e.target.value);
+                  console.log(e.target.value)
+                  setSubDomain(e.target.value)
                 }}
                 // style={{ zIndex: "9999" }}
               />
@@ -571,7 +571,7 @@ function Home() {
         </>
       )}
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home
