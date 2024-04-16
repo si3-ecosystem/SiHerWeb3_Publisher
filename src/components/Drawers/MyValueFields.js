@@ -11,6 +11,7 @@ import { handleDeleteFile, handleUpload } from "../../utils/fileUploader";
 function MyValueFields({ toggleDrawer }) {
   const { websiteData } = useSelector((state) => state.content);
   const [openIndex, setOpenIndex] = useState(null);
+  const [linkError, setlinkError] = useState("");
   const [imageLoading, setImageLoading] = useState("");
   const toggleAccordion = (index) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -50,6 +51,13 @@ function MyValueFields({ toggleDrawer }) {
     dispatch(handleWebsiteData({ ...websiteData, vision: updatedVisionData }));
   };
   const handleInputChange = (fieldName, value) => {
+    if (fieldName === "buttonLink") {
+      if (!validateURL(value)) {
+        setlinkError("*Invalid Url format");
+      } else {
+        setlinkError("");
+      }
+    }
     const updatedMyValueData = { ...websiteData.value };
     updatedMyValueData[fieldName] = value;
     dispatch(handleWebsiteData({ ...websiteData, value: updatedMyValueData }));
@@ -82,6 +90,14 @@ function MyValueFields({ toggleDrawer }) {
     updatedMyValue.links = updatedLinks;
     dispatch(handleWebsiteData({ ...websiteData, value: updatedMyValue }));
   };
+  function validateURL(url) {
+    // Regular expression pattern for URL validation
+    const urlPattern = new RegExp(
+      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    );
+    return urlPattern.test(url);
+  }
+
   return (
     <div className="w-full bg-white">
       <div className=" border border-b-gray-200 z-10 bg-gray-100  flex items-center justify-between  w-full p-4">
@@ -92,7 +108,7 @@ function MyValueFields({ toggleDrawer }) {
       </div>
       <div className=" overflow-y-auto max-h-screen">
         <form className="mb-10">
-          <div className="flex flex-col items-start p-4 mt-4">
+          {/* <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">Value Title</p>
             <div className="w-full">
               <input
@@ -105,11 +121,9 @@ function MyValueFields({ toggleDrawer }) {
                 onChange={(e) => handleInputChange("title", e.target.value)}
               />
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col items-start p-4 mt-4">
-            <p className="text-xs font-semibold text-gray-600">
-              Value Description
-            </p>
+            <p className="text-xs font-semibold text-gray-600">My Value</p>
             <div className="w-full">
               <textarea
                 value={websiteData?.value?.description}
@@ -126,7 +140,7 @@ function MyValueFields({ toggleDrawer }) {
             </div>
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
-            <p className="text-xs font-semibold text-gray-600">Vision Title</p>
+            <p className="text-xs font-semibold text-gray-600">Impact Title</p>
             <div className="w-full">
               <input
                 value={websiteData?.vision?.title}
@@ -143,7 +157,7 @@ function MyValueFields({ toggleDrawer }) {
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">
-              Vision Description
+              Impact Statement
             </p>
             <div className="w-full">
               <textarea
@@ -160,7 +174,7 @@ function MyValueFields({ toggleDrawer }) {
               />
             </div>
           </div>
-          <div className="flex flex-col items-start p-4 mt-4">
+          {/* <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">TV Name</p>
             <div className="w-full">
               <input
@@ -173,7 +187,7 @@ function MyValueFields({ toggleDrawer }) {
                 onChange={(e) => handleInputChange("TVName", e.target.value)}
               />
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-sm font-semibold mb-4">VIDEO</p>
             {imageLoading ? (
@@ -218,7 +232,7 @@ function MyValueFields({ toggleDrawer }) {
             )}
           </div>
           <div className="flex flex-col items-start p-4 mt-4 ">
-            <p className="text-xs font-semibold text-gray-600">Links</p>
+            <p className="text-xs font-semibold text-gray-600">Media</p>
             <div className="w-full">
               <section class="  ">
                 <div class=" mx-auto   max-w-7xl">
@@ -226,101 +240,117 @@ function MyValueFields({ toggleDrawer }) {
                     {websiteData?.value?.links?.map((item, index) => {
                       const isOpen = openIndex === index;
                       return (
-                        <div
-                          key={index}
-                          className="flex w-full items-center justify-between gap-3"
-                        >
-                          <div
-                            key={index}
-                            class="w-full transition-all duration-200 rounded-md bg-white border border-gray-200 cursor-pointer hover:bg-gray-50"
-                          >
-                            <div>
-                              <button
-                                type="button"
-                                id="question1"
-                                data-state="closed"
-                                class="flex items-center justify-between w-full px-3 py-2"
-                                onClick={() => toggleAccordion(index)}
-                              >
-                                <span class="flex text-sm font-semibold text-black">
-                                  {item?.title?.length > 25
-                                    ? item?.title.slice(0, 25) + "..."
-                                    : item?.title}
-                                </span>
-                                <svg
-                                  id="arrow1"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  className={`w-4 h-4 text-gray-400 transform transition-transform ${
-                                    isOpen ? "rotate-180" : ""
-                                  }`}
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 9l-7 7-7-7"
-                                  ></path>
-                                </svg>
-                              </button>
-                            </div>
-                            <div
-                              style={{ display: isOpen ? "block" : "none" }}
-                              className=" pb-5  sm:pb-6"
-                            >
-                              <div className="flex flex-col items-start p-4 mt-4">
-                                <p className="text-xs font-semibold text-gray-600">
-                                  Title
-                                </p>
-                                <div className="w-full">
-                                  <input
-                                    value={item?.title}
-                                    type="text"
-                                    id="subTitle"
-                                    class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                                    placeholder="Write label"
-                                    required
-                                    onChange={(e) =>
-                                      handleLinkText(
-                                        index,
-                                        "title",
-                                        e.target.value
-                                      )
-                                    }
-                                  />
-                                </div>
-                              </div>
-                              {/* <div className="flex flex-col items-start p-4 mt-4">
-                                <p className="text-xs font-semibold text-gray-600">
-                                  Link
-                                </p>
-                                <div className="w-full">
-                                  <input
-                                    value={item?.link}
-                                    type="text"
-                                    id="subTitle"
-                                    class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                                    placeholder="Write text"
-                                    required
-                                    onChange={(e) =>
-                                      handleLinkText(
-                                        index,
-                                        "link",
-                                        e.target.value
-                                      )
-                                    }
-                                  />
-                                </div>
-                              </div> */}
-                            </div>
+                        <div key={index} className=" pb-5  sm:pb-6">
+                          <div className="w-full">
+                            <input
+                              value={item?.title}
+                              type="text"
+                              id="subTitle"
+                              class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                              placeholder="Write label"
+                              required
+                              onChange={(e) =>
+                                handleLinkText(index, "title", e.target.value)
+                              }
+                            />
                           </div>
-                          <RiDeleteBinLine
-                            onClick={() => handleDeleteLink(index)}
-                            className={` text-xl text-red-500 cursor-pointer`}
-                          />
                         </div>
+                        // </div>
+                        // <div
+                        //   key={index}
+                        //   className="flex w-full items-center justify-between gap-3"
+                        // >
+                        //   <div
+                        //     key={index}
+                        //     class="w-full transition-all duration-200 rounded-md bg-white border border-gray-200 cursor-pointer hover:bg-gray-50"
+                        //   >
+                        //     <div>
+                        //       <button
+                        //         type="button"
+                        //         id="question1"
+                        //         data-state="closed"
+                        //         class="flex items-center justify-between w-full px-3 py-2"
+                        //         onClick={() => toggleAccordion(index)}
+                        //       >
+                        //         <span class="flex text-sm font-semibold text-black">
+                        //           {item?.title?.length > 25
+                        //             ? item?.title.slice(0, 25) + "..."
+                        //             : item?.title}
+                        //         </span>
+                        //         <svg
+                        //           id="arrow1"
+                        //           xmlns="http://www.w3.org/2000/svg"
+                        //           fill="none"
+                        //           viewBox="0 0 24 24"
+                        //           stroke="currentColor"
+                        //           className={`w-4 h-4 text-gray-400 transform transition-transform ${
+                        //             isOpen ? "rotate-180" : ""
+                        //           }`}
+                        //         >
+                        //           <path
+                        //             stroke-linecap="round"
+                        //             stroke-linejoin="round"
+                        //             stroke-width="2"
+                        //             d="M19 9l-7 7-7-7"
+                        //           ></path>
+                        //         </svg>
+                        //       </button>
+                        //     </div>
+                        //     <div
+                        //       style={{ display: isOpen ? "block" : "none" }}
+                        //       className=" pb-5  sm:pb-6"
+                        //     >
+                        //       <div className="flex flex-col items-start p-4 mt-4">
+                        //         <p className="text-xs font-semibold text-gray-600">
+                        //           Title
+                        //         </p>
+                        //         <div className="w-full">
+                        //           <input
+                        //             value={item?.title}
+                        //             type="text"
+                        //             id="subTitle"
+                        //             class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                        //             placeholder="Write label"
+                        //             required
+                        //             onChange={(e) =>
+                        //               handleLinkText(
+                        //                 index,
+                        //                 "title",
+                        //                 e.target.value
+                        //               )
+                        //             }
+                        //           />
+                        //         </div>
+                        //       </div>
+                        //       {/* <div className="flex flex-col items-start p-4 mt-4">
+                        //         <p className="text-xs font-semibold text-gray-600">
+                        //           Link
+                        //         </p>
+                        //         <div className="w-full">
+                        //           <input
+                        //             value={item?.link}
+                        //             type="text"
+                        //             id="subTitle"
+                        //             class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                        //             placeholder="Write text"
+                        //             required
+                        //             onChange={(e) =>
+                        //               handleLinkText(
+                        //                 index,
+                        //                 "link",
+                        //                 e.target.value
+                        //               )
+                        //             }
+                        //           />
+                        //         </div>
+                        //       </div> */}
+                        //     </div>
+                        //   </div>
+                        //   <RiDeleteBinLine
+                        //     onClick={() => handleDeleteLink(index)}
+                        //     className={` text-xl text-red-500 cursor-pointer`}
+                        //   />
+                        // </div>
                       );
                     })}
                     {websiteData?.value?.links.length < 3 && (
@@ -337,14 +367,15 @@ function MyValueFields({ toggleDrawer }) {
               </section>
             </div>
           </div>
-          <div className="flex flex-col items-start p-4 mt-4 mb-20">
+          <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">Button Text</p>
             <div className="w-full">
               <input
+                disabled
                 value={websiteData?.value?.buttonText}
                 type="text"
                 id="buttonText"
-                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                class="mt-3 cursor-not-allowed  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
                 placeholder="Write tv name here..."
                 required
                 onChange={(e) =>
@@ -352,6 +383,25 @@ function MyValueFields({ toggleDrawer }) {
                 }
               />
             </div>
+          </div>
+          <div className="flex flex-col items-start p-4 mt-4 mb-20">
+            <p className="text-xs font-semibold text-gray-600">
+              Aurpay Crypto Link
+            </p>
+            <div className="w-full">
+              <input
+                value={websiteData?.value?.buttonLink}
+                type="url"
+                id="buttonLink"
+                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                placeholder="Paste Aurpay Crypto Link"
+                required
+                onChange={(e) =>
+                  handleInputChange("buttonLink", e.target.value)
+                }
+              />
+            </div>
+            <p className="text-red-500 text-sm">{linkError}</p>
           </div>
         </form>
       </div>

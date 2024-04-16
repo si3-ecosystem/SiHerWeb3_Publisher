@@ -8,7 +8,7 @@ let navbar = {
   // fixedHeader: true,
 };
 let landing = {
-  title: "I’M KARA,",
+  title: " KARA,",
   subTitle: "& I CREATE EQUITABLE PLATFORMS FOR THE NEW ECONOMY.",
   hashTagTitle: "WHAT I STAND FOR:",
   hashTags: [
@@ -75,7 +75,8 @@ let value = {
       // link: "https://podcasters.spotify.com/pod/show/b-r-i/episodes/Diversity-in-the-new-economy-e26pn30/a-aa40rlt",
     },
   ],
-  buttonText: "Support Kara in cryto",
+  buttonText: "TIP IN CRYPTO",
+  buttonLink: "",
 };
 let vision = {
   title: "MY VISION",
@@ -226,27 +227,45 @@ let available = {
       heading: "speaking",
     },
     {
-      heading: "Advising",
+      heading: "advising",
     },
     {
-      heading: "Collabs",
+      heading: "collabs",
     },
   ],
-  linkedin: {
-    url: "@Si Her TV",
-    hide: false,
-  },
-  instagram: {
-    url: "@Si Her TV",
-    hide: false,
-  },
-  twitter: {
-    url: "@Si Her TV",
-    hide: false,
-  },
-  email: {
-    address: "kara@si3.space",
-    hide: false,
-  },
+  socialChannels: [
+    {
+      text: "linkedin",
+      url: "www.linkedin.com",
+    },
+    {
+      text: "instagram",
+      url: "www.instagram.com",
+    },
+    {
+      text: "twitter",
+      url: "www.twitter.com",
+    },
+    {
+      text: "email",
+      url: "kara@si3.space",
+    },
+  ],
+  // linkedin: {
+  //   url: "@Si Her TV",
+  //   hide: false,
+  // },
+  // instagram: {
+  //   url: "@Si Her TV",
+  //   hide: false,
+  // },
+  // twitter: {
+  //   url: "@Si Her TV",
+  //   hide: false,
+  // },
+  // email: {
+  //   address: "kara@si3.space",
+  //   hide: false,
+  // },
 };
 export default { navbar, landing, value, vision, CV, available };

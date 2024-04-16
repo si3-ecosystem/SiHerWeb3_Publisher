@@ -166,7 +166,9 @@ function LandingFields({ toggleDrawer }) {
             </div>
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
-            <p className="text-xs font-semibold text-gray-600">Sub title</p>
+            <p className="text-xs font-semibold text-gray-600">
+              Impact Headline
+            </p>
             <div className="w-full">
               <textarea
                 value={websiteData?.landing?.subTitle}
@@ -181,13 +183,14 @@ function LandingFields({ toggleDrawer }) {
             </div>
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
-            <p className="text-xs font-semibold text-gray-600">HashTag Title</p>
+            <p className="text-xs font-semibold text-gray-600">Brand Pillars</p>
             <div className="w-full">
               <input
                 value={websiteData?.landing?.hashTagTitle}
                 type="text"
+                disabled
                 id="hashTagTitle"
-                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                class="mt-3 cursor-not-allowed  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
                 placeholder="WHAT I STAND FOR:"
                 required
                 onChange={(e) =>
@@ -210,10 +213,10 @@ function LandingFields({ toggleDrawer }) {
                     required
                     onChange={(e) => handleUpdateTag(index, e.target.value)}
                   />
-                  <RiDeleteBinLine
+                  {/* <RiDeleteBinLine
                     onClick={() => handleDeleteTag(index)}
                     className={`mt-2 text-xl text-red-500 cursor-pointer`}
-                  />
+                  /> */}
                 </div>
               );
             })}
@@ -226,112 +229,140 @@ function LandingFields({ toggleDrawer }) {
             </div>
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
-            <p className="text-xs font-semibold text-gray-600">Categories</p>
+            <p className="text-xs font-semibold text-gray-600">
+              Portal Categories
+            </p>
             <div className="w-full">
               <section class="  ">
                 <div class=" mx-auto   max-w-7xl">
-                  <div class="max-w-3xl mx-auto mt-8 space-y-4 ">
+                  <div class="max-w-3xl mx-auto mt-2 space-y-4 ">
                     {websiteData?.landing?.categories?.map((item, index) => {
                       const isOpen = openIndex === index;
                       return (
-                        <div className="flex w-full items-center justify-between gap-3">
-                          <div
-                            key={index}
-                            class="w-full transition-all duration-200 rounded-md bg-white border border-gray-200 cursor-pointer hover:bg-gray-50"
-                          >
-                            <div>
-                              <button
-                                type="button"
-                                id="question1"
-                                data-state="closed"
-                                class="flex items-center justify-between w-full px-3 py-2"
-                                onClick={() => toggleAccordion(index)}
-                              >
-                                <span class="flex text-sm font-semibold text-black">
-                                  {item?.title}
-                                </span>
-                                <svg
-                                  id="arrow1"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  className={`w-4 h-4 text-gray-400 transform transition-transform ${
-                                    isOpen ? "rotate-180" : ""
-                                  }`}
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 9l-7 7-7-7"
-                                  ></path>
-                                </svg>
-                              </button>
-                            </div>
-                            <div
-                              style={{ display: isOpen ? "block" : "none" }}
-                              className=" pb-5  sm:pb-6"
-                            >
-                              <div className="flex flex-col items-start p-4 mt-4">
-                                <p className="text-xs font-semibold text-gray-600">
-                                  Label
-                                </p>
-                                <div className="w-full">
-                                  <input
-                                    value={item?.title}
-                                    type="text"
-                                    id="subTitle"
-                                    class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                                    placeholder="Write label"
-                                    required
-                                    onChange={(e) =>
-                                      handleCategoryInputChange(
-                                        index,
-                                        "title",
-                                        e.target.value
-                                      )
-                                    }
-                                  />
-                                </div>
-                              </div>
-                              <div className="flex flex-col items-start p-4 mt-4">
-                                <p className="text-xs font-semibold text-gray-600">
-                                  Text
-                                </p>
-                                <div className="w-full">
-                                  <input
-                                    value={item?.text}
-                                    type="text"
-                                    id="subTitle"
-                                    class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                                    placeholder="Write text"
-                                    required
-                                    onChange={(e) =>
-                                      handleCategoryInputChange(
-                                        index,
-                                        "text",
-                                        e.target.value
-                                      )
-                                    }
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        <div
+                          className="w-full flex items-center gap-4 "
+                          key={index}
+                        >
+                          <input
+                            value={item.title}
+                            type="text"
+                            id="hashTagTitle"
+                            class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                            placeholder="EQUITY"
+                            required
+                            onChange={(e) =>
+                              handleCategoryInputChange(
+                                index,
+                                "title",
+                                e.target.value
+                              )
+                            }
+                          />
                           <RiDeleteBinLine
                             onClick={() => handleCategoryObject(index)}
-                            className={` text-xl text-red-500 cursor-pointer`}
+                            className={`mt-2 text-xl text-red-500 cursor-pointer`}
                           />
                         </div>
                       );
+                      // return (
+                      //   <div className="flex w-full items-center justify-between gap-3">
+                      //     <div
+                      //       key={index}
+                      //       class="w-full transition-all duration-200 rounded-md bg-white border border-gray-200 cursor-pointer hover:bg-gray-50"
+                      //     >
+                      //       <div>
+                      //         <button
+                      //           type="button"
+                      //           id="question1"
+                      //           data-state="closed"
+                      //           class="flex items-center justify-between w-full px-3 py-2"
+                      //           onClick={() => toggleAccordion(index)}
+                      //         >
+                      //           <span class="flex text-sm font-semibold text-black">
+                      //             {item?.title}
+                      //           </span>
+                      //           <svg
+                      //             id="arrow1"
+                      //             xmlns="http://www.w3.org/2000/svg"
+                      //             fill="none"
+                      //             viewBox="0 0 24 24"
+                      //             stroke="currentColor"
+                      //             className={`w-4 h-4 text-gray-400 transform transition-transform ${
+                      //               isOpen ? "rotate-180" : ""
+                      //             }`}
+                      //           >
+                      //             <path
+                      //               stroke-linecap="round"
+                      //               stroke-linejoin="round"
+                      //               stroke-width="2"
+                      //               d="M19 9l-7 7-7-7"
+                      //             ></path>
+                      //           </svg>
+                      //         </button>
+                      //       </div>
+                      //       <div
+                      //         style={{ display: isOpen ? "block" : "none" }}
+                      //         className=" pb-5  sm:pb-6"
+                      //       >
+                      //         <div className="flex flex-col items-start p-4 mt-4">
+                      //           <p className="text-xs font-semibold text-gray-600">
+                      //             Label
+                      //           </p>
+                      //           <div className="w-full">
+                      //             <input
+                      //               value={item?.title}
+                      //               type="text"
+                      //               id="subTitle"
+                      //               class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                      //               placeholder="Write label"
+                      //               required
+                      //               onChange={(e) =>
+                      //                 handleCategoryInputChange(
+                      //                   index,
+                      //                   "title",
+                      //                   e.target.value
+                      //                 )
+                      //               }
+                      //             />
+                      //           </div>
+                      //         </div>
+                      //         <div className="flex flex-col items-start p-4 mt-4">
+                      //           <p className="text-xs font-semibold text-gray-600">
+                      //             Text
+                      //           </p>
+                      //           <div className="w-full">
+                      //             <input
+                      //               value={item?.text}
+                      //               type="text"
+                      //               id="subTitle"
+                      //               class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                      //               placeholder="Write text"
+                      //               required
+                      //               onChange={(e) =>
+                      //                 handleCategoryInputChange(
+                      //                   index,
+                      //                   "text",
+                      //                   e.target.value
+                      //                 )
+                      //               }
+                      //             />
+                      //           </div>
+                      //         </div>
+                      //       </div>
+                      //     </div>
+                      //     <RiDeleteBinLine
+                      //       onClick={() => handleCategoryObject(index)}
+                      //       className={` text-xl text-red-500 cursor-pointer`}
+                      //     />
+                      //   </div>
+                      // );
                     })}
                     <div
                       className="flex items-center gap-2 mt-6 cursor-pointer "
                       onClick={handleAddCategory}
                     >
                       <FaCirclePlus className="text-[#EEA941] text-lg" />
-                      <p className="text-sm">Add Category</p>
+                      <p className="text-sm">Add Portal Categories</p>
                     </div>
                   </div>
                 </div>
@@ -378,6 +409,9 @@ function LandingFields({ toggleDrawer }) {
                     </label>
                   </div>
                 )}
+                <span className="mt-6 text-xs text-red-500">
+                  *Image must be .jpg, .jpeg, .png
+                </span>
               </>
             )}
           </div>

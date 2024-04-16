@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function WebPage({ setIsOpen }) {
   const { websiteData } = useSelector((state) => state.content);
@@ -109,7 +110,7 @@ function WebPage({ setIsOpen }) {
           </svg>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: "56px" }}>
-              <div>{websiteData?.landing?.title}</div>
+              <div>I’M {websiteData?.landing?.title}</div>
               <div>{websiteData?.landing?.subTitle}</div>
             </div>
             <div
@@ -1138,7 +1139,29 @@ function WebPage({ setIsOpen }) {
               justifyContent: "center",
             }}
           >
-            {!websiteData?.available?.linkedin?.hide && (
+            {websiteData?.available?.socialChannels?.map((item, index) => {
+              return (
+                <>
+                  <a to={item?.url} target="_blank">
+                    <div
+                      key={index}
+                      style={{
+                        padding: "12px 20px",
+                        border: "1px solid #363636",
+                        borderRadius: "6px",
+                        backgroundColor: "#ffffff1a",
+                        color: "white",
+                      }}
+                    >
+                      <span>{item.text}:</span>
+                      <span> {item.url} </span>
+                    </div>
+                  </a>
+                </>
+              );
+            })}
+
+            {/* {!websiteData?.available?.linkedin?.hide && (
               <div
                 style={{
                   padding: "12px 20px",
@@ -1189,8 +1212,9 @@ function WebPage({ setIsOpen }) {
                 <span>Mail:</span>
                 <span> {websiteData?.available?.email?.address} </span>
               </div>
-            )}
+            )} */}
           </div>
+          <p style={{ margin: "30px 0" }}>@2024 SI3</p>
         </div>
       </div>
       {/* <!-- available end --> */}

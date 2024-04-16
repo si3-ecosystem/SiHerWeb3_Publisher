@@ -56,14 +56,16 @@ function MyCVFields({ toggleDrawer }) {
     dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
   };
   const handleAddPastHighlights = () => {
-    const updatedCV = {
-      ...websiteData.CV,
-      past: {
-        ...websiteData.CV.past,
-        highlights: [...websiteData.CV.past.highlights, ""],
-      },
-    };
-    dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
+    if (websiteData.CV.past.highlights.length < 7) {
+      const updatedCV = {
+        ...websiteData.CV,
+        past: {
+          ...websiteData.CV.past,
+          highlights: [...websiteData.CV.past.highlights, ""],
+        },
+      };
+      dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
+    }
   };
   const handlePastDeleteHighlights = (index) => {
     const updatedCV = {
@@ -115,15 +117,18 @@ function MyCVFields({ toggleDrawer }) {
   };
 
   const handleAddPresentHighlights = () => {
-    const updatedCV = {
-      ...websiteData.CV,
-      present: {
-        ...websiteData.CV.present,
-        highlights: [...websiteData.CV.present.highlights, ""],
-      },
-    };
-    dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
+    if (websiteData.CV.present.highlights.length < 7) {
+      const updatedCV = {
+        ...websiteData.CV,
+        present: {
+          ...websiteData.CV.present,
+          highlights: [...websiteData.CV.present.highlights, ""],
+        },
+      };
+      dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
+    }
   };
+  console.log(websiteData.CV.present.highlights.length);
   return (
     <div className="w-full bg-white">
       <div className=" border border-b-gray-200 z-10 bg-gray-100  flex items-center justify-between  w-full p-4">
@@ -148,7 +153,59 @@ function MyCVFields({ toggleDrawer }) {
               />
             </div>
           </div> */}
-
+          <div className="flex flex-col items-start p-4  mb-10">
+            <p className="text-xs font-semibold text-gray-600">Past</p>
+            <div className="w-full">
+              <section class="  ">
+                <div class=" mx-auto   max-w-7xl">
+                  <div class=" mt-4 space-y-4 ">
+                    {websiteData?.CV?.past?.highlights?.map((item, index) => {
+                      return (
+                        <div key={index} className=" w-full ">
+                          <div className="flex flex-col items-start  ">
+                            {/* <p className="text-xs font-semibold text-gray-600">
+                              Text
+                            </p> */}
+                            <div className="flex justify-between items-center gap-3 w-full">
+                              <input
+                                value={item}
+                                type="text"
+                                id="subTitle"
+                                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                                placeholder="Write text here..."
+                                required
+                                rows={4}
+                                onChange={(e) =>
+                                  handlePastHighlights(index, e.target.value)
+                                }
+                              />
+                              {websiteData.CV.past.highlights.length > 3 && (
+                                <RiDeleteBinLine
+                                  onClick={() =>
+                                    handlePastDeleteHighlights(index)
+                                  }
+                                  className={` text-xl mt-2 text-red-500 cursor-pointer`}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    {websiteData.CV.past.highlights.length < 7 && (
+                      <div
+                        className="flex items-center gap-2 mt-6 cursor-pointer "
+                        onClick={handleAddPastHighlights}
+                      >
+                        <FaCirclePlus className="text-[#EEA941] text-lg" />
+                        <p className="text-sm">Add Past Highlight</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
           <div className="flex flex-col items-start p-4 mt-4 mb-10">
             <p className="text-xs font-semibold text-gray-600">Present</p>
             <div className="w-full">
@@ -250,17 +307,19 @@ function MyCVFields({ toggleDrawer }) {
                                 </div>
                               </div>
                             </div>
-                            <RiDeleteBinLine
-                              onClick={() =>
-                                handlePresentDeleteHighlights(index)
-                              }
-                              className={` text-xl text-red-500 cursor-pointer`}
-                            />
+                            {websiteData.CV.present.highlights.length > 3 && (
+                              <RiDeleteBinLine
+                                onClick={() =>
+                                  handlePresentDeleteHighlights(index)
+                                }
+                                className={` text-xl text-red-500 cursor-pointer`}
+                              />
+                            )}
                           </div>
                         );
                       }
                     )}
-                    {websiteData?.value?.links.length < 10 && (
+                    {websiteData.CV.present.highlights.length < 7 && (
                       <div
                         className="flex items-center gap-2 mt-6 cursor-pointer "
                         onClick={handleAddPresentHighlights}
@@ -274,57 +333,7 @@ function MyCVFields({ toggleDrawer }) {
               </section>
             </div>
           </div>
-          <div className="flex flex-col items-start p-4  mb-10">
-            <p className="text-xs font-semibold text-gray-600">Past</p>
-            <div className="w-full">
-              <section class="  ">
-                <div class=" mx-auto   max-w-7xl">
-                  <div class=" mt-4 space-y-4 ">
-                    {websiteData?.CV?.past?.highlights?.map((item, index) => {
-                      return (
-                        <div key={index} className=" w-full ">
-                          <div className="flex flex-col items-start  ">
-                            {/* <p className="text-xs font-semibold text-gray-600">
-                              Text
-                            </p> */}
-                            <div className="flex justify-between items-center gap-3 w-full">
-                              <input
-                                value={item}
-                                type="text"
-                                id="subTitle"
-                                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                                placeholder="Write text here..."
-                                required
-                                rows={4}
-                                onChange={(e) =>
-                                  handlePastHighlights(index, e.target.value)
-                                }
-                              />
-                              <RiDeleteBinLine
-                                onClick={() =>
-                                  handlePastDeleteHighlights(index)
-                                }
-                                className={` text-xl mt-2 text-red-500 cursor-pointer`}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                    {websiteData?.value?.links.length < 10 && (
-                      <div
-                        className="flex items-center gap-2 mt-6 cursor-pointer "
-                        onClick={handleAddPastHighlights}
-                      >
-                        <FaCirclePlus className="text-[#EEA941] text-lg" />
-                        <p className="text-sm">Add Past Highlight</p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
+
           <div className="flex flex-col items-start p-4  mb-20">
             <p className="text-xs font-semibold text-gray-600">Future</p>
             <div className="w-full">
