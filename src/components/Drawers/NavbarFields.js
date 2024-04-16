@@ -147,7 +147,7 @@ function NavbarFields({ toggleDrawer }) {
               />
             </div>
           </div>
-          <div className="flex flex-col items-start p-4 mt-4 mb-8">
+          {/* <div className="flex flex-col items-start p-4 mt-4 mb-8">
             <p className="text-xs font-semibold text-gray-600">LINKS</p>
             {websiteData?.navbar?.links?.map((link, index) => (
               <div className="w-full" key={index}>
@@ -165,7 +165,7 @@ function NavbarFields({ toggleDrawer }) {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
           {/* <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">Button Text</p>
             <div className="w-full">
