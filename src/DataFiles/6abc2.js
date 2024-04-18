@@ -21,19 +21,19 @@ let landing = {
   categories: [
     {
       title: "Region",
-      // text: "Latin America",
+      text: "Middle East",
     },
     {
-      title: "Web3 Category",
-      // text: "Web3 Founder",
+      title: "Superpower",
+      text: ["Web3 Founder"],
     },
     {
       title: "Organization Affiliations",
-      // text: "Web3 Founder",
+      text: "Web3 Founder",
     },
     {
       title: "Community Affiliations",
-      // text: "Si Her, WeDAO Latam, EcstaSHE, CryptoFemale, Web3 Ladies",
+      text: "Si Her",
     },
   ],
   userimg: {
@@ -57,22 +57,25 @@ let value = {
     "My career began as an Equity Research analyst on Wall St. I started the MBA program at NYU in the Fall of 2008, right as the market crashed, with Occupy Wall St. protests happening outside our campus doors. As often happens, times of crises create opportunity and I shifted my career focus from finance to marketing & entrepreneurship. I began my entrepreneurial journey with ups and downs and great learning - most importantly, discovering my passion and purpose in supporting women in elevating their voices and professional and personal success. I have led and participated in women-related communities in investing, startups, technology, AI, futurism, product and data science. I have placed over 350 women in speaking opportunities and experience shared value and fulfillment when I see women stepping into their full potential. I bring the value of ten years in finance, and ten years of community architecting & growth marketing, to Si Her as it`s platform creator. And my exploration in Equity Research continues.",
   TVName: "SI HER TV",
   video: {
-    path: "https://docs.material-tailwind.com/demo.mp4",
+    path: "https://lvpr.tv?v=33e86xt51h1f718x",
     id: null,
   },
-  // video: "https://docs.material-tailwind.com/demo.mp4",
+  // video: "https://lvpr.tv?v=33e86xt51h1f718x",
   links: [
     {
+      type: "WEBSITE",
       title: "WE ARE SI3",
-      // link: "https://www.si-her.live/",
+      link: "https://www.si-her.live/",
     },
     {
+      type: "YOUTUBE",
       title: "UNLOCKING NFT'S FOR META IMPACT",
-      // link: "https://www.youtube.com/watch?v=y-Bz60q298c",
+      link: "https://www.youtube.com/watch?v=y-Bz60q298c",
     },
     {
+      type: "PODCAST",
       title: "DIVERSITY IN THE NEW ECONOMY",
-      // link: "https://podcasters.spotify.com/pod/show/b-r-i/episodes/Diversity-in-the-new-economy-e26pn30/a-aa40rlt",
+      link: "https://podcasters.spotify.com/pod/show/b-r-i/episodes/Diversity-in-the-new-economy-e26pn30/a-aa40rlt",
     },
   ],
   buttonText: "TIP IN CRYPTO",
