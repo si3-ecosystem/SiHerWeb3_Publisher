@@ -10,6 +10,7 @@ import { handleDeleteFile, handleUpload } from "../../utils/fileUploader";
 import ReactSelect from "react-select";
 function LandingFields({ toggleDrawer }) {
   const { websiteData } = useSelector((state) => state.content);
+  console.log(websiteData, "website data");
   const [openIndex, setOpenIndex] = useState(null);
   const [imageLoading, setImageLoading] = useState("");
 
@@ -81,36 +82,19 @@ function LandingFields({ toggleDrawer }) {
     };
     dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
   };
-  const handleSuperCategoryInputChange = (
-    categoryIndex,
-    field,
-    value,
-    textIndex
-  ) => {
-    const updatedCategories = websiteData?.landing?.categories.map(
-      (category, idx) => {
-        if (idx === categoryIndex) {
-          // If the field is 'text' and the value is an array
-          if (field === "text" && Array.isArray(category[field])) {
-            // Create a copy of the array and update the specific index
-            const updatedText = [...category[field]];
-            updatedText[textIndex] = value;
-
-            return {
-              ...category,
-              [field]: updatedText,
-            };
+  const handleSuperCategoryInputChange = (field, value, textIndex) => {
+    let updatedCategories = {
+      ...websiteData?.landing?.categories,
+      superPower: websiteData?.landing?.categories?.superPower.map(
+        (text, INDEX) => {
+          if (INDEX === textIndex) {
+            return value; // Replace the current value with the new one
+          } else {
+            return text; // Keep other values unchanged
           }
-          // For non-array fields, update normally
-          return {
-            ...category,
-            [field]: value,
-          };
         }
-        return category;
-      }
-    );
-
+      ),
+    };
     const updatedLanding = {
       ...websiteData?.landing,
       categories: updatedCategories,
@@ -119,52 +103,39 @@ function LandingFields({ toggleDrawer }) {
     dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
   };
 
-  const handleCategoryInputChange = (index, field, value) => {
-    const updatedCategories = websiteData?.landing?.categories.map(
-      (category, idx) => {
-        if (idx === index) {
-          return {
-            ...category,
-            [field]: value,
-          };
-        }
-        return category;
-      }
-    );
+  const handleCategoryInputChange = (field, value) => {
+    let updatedCategories = { ...websiteData?.landing?.categories };
+    if (field === "region") {
+      updatedCategories = {
+        ...websiteData?.landing?.categories,
+        region: value,
+      };
+    } else if (field === "organizationAffiliations") {
+      updatedCategories = {
+        ...websiteData?.landing?.categories,
+        organizationAffiliations: value,
+      };
+    } else if (field === "communityAffiliations") {
+      updatedCategories = {
+        ...websiteData?.landing?.categories,
+        communityAffiliations: value,
+      };
+    }
+
     const updatedLanding = {
       ...websiteData?.landing,
       categories: updatedCategories,
     };
     dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
   };
-  const AddSuperPowerTag = (categoryIndex) => {
-    // Create a new array from the current categories
-    const updatedCategories = websiteData?.landing?.categories.map(
-      (category, idx) => {
-        if (idx === categoryIndex) {
-          // Check if the current category title is "Superpower"
-          if (category.title === "Superpower") {
-            // Ensure the text field is an array, initialize it if not
-            const updatedText = Array.isArray(category.text)
-              ? [...category.text]
-              : [];
-
-            // Add an empty string to the array only if the length is less than 3
-            if (updatedText.length < 3) {
-              updatedText.push("");
-            }
-
-            // Return the updated category with the new text array
-            return {
-              ...category,
-              text: updatedText,
-            };
-          }
-        }
-        // Return the original category if it's not the Superpower category
-        return category;
-      }
-    );
+  const AddSuperPowerTag = () => {
+    const updatedCategories = {
+      ...websiteData?.landing?.categories,
+      superPower:
+        websiteData?.landing?.categories?.superPower.length < 3
+          ? [...websiteData?.landing?.categories?.superPower, " "]
+          : websiteData?.landing?.categories?.superPower,
+    };
 
     // Create a new updated landing object
     const updatedLanding = {
@@ -175,25 +146,23 @@ function LandingFields({ toggleDrawer }) {
     // Dispatch the updated websiteData with the new landing state
     dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
   };
-  const deleteSuperpowerTextIndex = (categoryIndex, textIndex) => {
+  const deleteSuperpowerTextIndex = (textIndex) => {
+    // at least it contain one element
+    if( websiteData?.landing?.categories?.superPower.length === 1)
+    {
+      return;
+    }
+    
+
     // Update categories by mapping through them
-    const updatedCategories = websiteData?.landing?.categories.map(
-      (category, idx) => {
-        if (
-          idx === categoryIndex &&
-          category.title === "Superpower" &&
-          Array.isArray(category.text)
-        ) {
-          // Create a copy of the text array and remove the specified index
-          const updatedText = [...category.text];
-          updatedText.splice(textIndex, 1);
-          // Return updated category
-          return { ...category, text: updatedText };
+    const updatedCategories = {
+      ...websiteData?.landing?.categories,
+      superPower: websiteData?.landing?.categories?.superPower.filter(
+        (ITEM, INDEX) => {
+          return INDEX != textIndex;
         }
-        // Return original category if conditions not met
-        return category;
-      }
-    );
+      ),
+    };
 
     // Dispatch the updated websiteData with the modified landing state
     dispatch(
@@ -359,124 +328,132 @@ function LandingFields({ toggleDrawer }) {
             </p>
             <div className="w-full">
               <section class="  ">
-                <div class=" mx-auto   max-w-7xl">
+                <div class=" mx-auto max-w-7xl">
                   <div class="max-w-3xl mx-auto mt-1 space-y-4 ">
-                    {websiteData?.landing?.categories?.map((item, index) => {
-                      return (
-                        <div className="w-full " key={index}>
-                          <p className="text-xs text-start font-semibold mt-4 text-gray-600">
-                            {item?.title}
-                          </p>
-                          <div className="">
-                            {item.title === "Region" ? (
-                              <div className="w-full mt-2">
-                                <ReactSelect
-                                  options={options}
-                                  value={websiteData?.landing?.categories?.map(
-                                    (val) =>
-                                      options.find(
-                                        (option) => option.value === val.text
-                                      )
-                                  )}
-                                  onChange={(value) => {
-                                    if (value.length === 0) {
-                                      return;
-                                    }
-                                    handleCategoryInputChange(
-                                      index,
-                                      "text",
-                                      value.value
-                                    );
-                                  }}
-                                  className="basic-multi-select"
-                                  classNamePrefix="select"
+                    {/* REGION */}
+                    <div className="w-full">
+                      <p className="text-xs text-start font-semibold mt-4 text-gray-600">
+                        Region
+                      </p>
+                      <div className="">
+                        <div className="w-full mt-2">
+                          <ReactSelect
+                            options={options}
+                            placeholder={
+                              websiteData?.landing?.categories?.region
+                            }
+                            onChange={(value) => {
+                              console.log(value);
+                              if (value.length === 0) {
+                                return;
+                              }
+                              handleCategoryInputChange("region", value.value);
+                            }}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SUPER POWER */}
+                    <div className="w-full">
+                      <p className="text-xs text-start font-semibold mt-4 text-gray-600">
+                        Superpower
+                      </p>
+                      <>
+                        {websiteData?.landing?.categories?.superPower?.map(
+                          (item, textIndex) => {
+                            return (
+                              <div className="flex items-center gap-4">
+                                <input
+                                  value={item}
+                                  type="text"
+                                  id="hashTagTitle"
+                                  class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                                  placeholder="Write here..."
+                                  required
+                                  onChange={(e) =>
+                                    handleSuperCategoryInputChange(
+                                      "text", // field name
+                                      e.target.value, // new value
+                                      textIndex // text array index
+                                    )
+                                  }
+                                />
+                                <RiDeleteBinLine
+                                  onClick={() =>
+                                    deleteSuperpowerTextIndex(textIndex)
+                                  }
+                                  className={`mt-2 text-xl text-red-500 cursor-pointer`}
                                 />
                               </div>
-                            ) : (
-                              <>
-                                {item.title === "Superpower" ? (
-                                  <>
-                                    {item.text?.map((item, textIndex) => {
-                                      return (
-                                        <div className="flex items-center gap-4">
-                                          <input
-                                            value={item}
-                                            type="text"
-                                            id="hashTagTitle"
-                                            class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                                            placeholder="Write here..."
-                                            required
-                                            onChange={(e) =>
-                                              handleSuperCategoryInputChange(
-                                                index, // category index
-                                                "text", // field name
-                                                e.target.value, // new value
-                                                textIndex // text array index
-                                              )
-                                            }
-                                          />
-                                          <RiDeleteBinLine
-                                            onClick={() =>
-                                              deleteSuperpowerTextIndex(
-                                                index,
-                                                textIndex
-                                              )
-                                            }
-                                            className={`mt-2 text-xl text-red-500 cursor-pointer`}
-                                          />
-                                        </div>
-                                      );
-                                    })}
-                                    {websiteData?.landing?.categories[1].text
-                                      ?.length < 3 && (
-                                      <div
-                                        className="flex items-center gap-2 mt-6 cursor-pointer "
-                                        onClick={() => AddSuperPowerTag(index)}
-                                      >
-                                        <FaCirclePlus className="text-[#EEA941] text-lg" />
-                                        <p className="text-sm">
-                                          Add Super Power
-                                        </p>
-                                      </div>
-                                    )}
-                                  </>
-                                ) : (
-                                  <>
-                                    <input
-                                      value={item.text}
-                                      type="text"
-                                      id="hashTagTitle"
-                                      class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                                      placeholder="Write here..."
-                                      required
-                                      onChange={(e) =>
-                                        handleCategoryInputChange(
-                                          index,
-                                          "text",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  </>
-                                )}
-                              </>
-                            )}
+                            );
+                          }
+                        )}
+                        {websiteData?.landing?.categories.superPower?.length <
+                          3 && (
+                          <div
+                            className="flex items-center gap-2 mt-6 cursor-pointer "
+                            onClick={() => AddSuperPowerTag()}
+                          >
+                            <FaCirclePlus className="text-[#EEA941] text-lg" />
+                            <p className="text-sm">Add Super Power</p>
                           </div>
+                        )}
+                      </>
+                    </div>
 
-                          {/* <RiDeleteBinLine
-                            onClick={() => handleCategoryObject(index)}
-                            className={`mt-2 text-xl text-red-500 cursor-pointer`}
-                          /> */}
-                        </div>
-                      );
-                    })}
-                    {/* <div
-                      className="flex items-center gap-2 mt-6 cursor-pointer "
-                      onClick={handleAddCategory}
-                    >
-                      <FaCirclePlus className="text-[#EEA941] text-lg" />
-                      <p className="text-sm">Add Portal Categories</p>
-                    </div> */}
+                    {/* organizationAffiliations */}
+                    <div className="w-full">
+                      <p className="text-xs text-start font-semibold mt-4 text-gray-600">
+                        Organization Affiliations
+                      </p>
+                      <>
+                        <input
+                          value={
+                            websiteData?.landing?.categories
+                              .organizationAffiliations
+                          }
+                          type="text"
+                          id="hashTagTitle"
+                          class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                          placeholder="Write here..."
+                          required
+                          onChange={(e) =>
+                            handleCategoryInputChange(
+                              "organizationAffiliations",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </>
+                    </div>
+                    {/* communityAffiliations */}
+                    <div className="w-full">
+                      <p className="text-xs text-start font-semibold mt-4 text-gray-600">
+                        Community Affiliations
+                      </p>
+                      <>
+                        <input
+                          value={
+                            websiteData?.landing?.categories
+                              .communityAffiliations
+                          }
+                          type="text"
+                          id="hashTagTitle"
+                          class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                          placeholder="Write here..."
+                          required
+                          onChange={(e) =>
+                            handleCategoryInputChange(
+                              "communityAffiliations",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -593,3 +570,98 @@ function LandingFields({ toggleDrawer }) {
 }
 
 export default LandingFields;
+
+// {
+//   websiteData?.landing?.categories?.map((item, index) => {
+//     return (
+//       <div className="w-full " key={index}>
+//         <p className="text-xs text-start font-semibold mt-4 text-gray-600">
+//           {item?.title}
+//         </p>
+//         <div className="">
+//           {item.title === "Region" ? (
+//             <div className="w-full mt-2">
+//               <ReactSelect
+//                 options={options}
+//                 value={websiteData?.landing?.categories?.map((val) =>
+//                   options.find((option) => option.value === val.text)
+//                 )}
+//                 onChange={(value) => {
+//                   if (value.length === 0) {
+//                     return;
+//                   }
+//                   handleCategoryInputChange(index, "text", value.value);
+//                 }}
+//                 className="basic-multi-select"
+//                 classNamePrefix="select"
+//               />
+//             </div>
+//           ) : (
+//             <>
+//               {item.title === "Superpower" ? (
+//                 <>
+//                   {item.text?.map((item, textIndex) => {
+//                     return (
+//                       <div className="flex items-center gap-4">
+//                         <input
+//                           value={item}
+//                           type="text"
+//                           id="hashTagTitle"
+//                           class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+//                           placeholder="Write here..."
+//                           required
+//                           onChange={(e) =>
+//                             handleSuperCategoryInputChange(
+//                               index, // category index
+//                               "text", // field name
+//                               e.target.value, // new value
+//                               textIndex // text array index
+//                             )
+//                           }
+//                         />
+//                         <RiDeleteBinLine
+//                           onClick={() =>
+//                             deleteSuperpowerTextIndex(index, textIndex)
+//                           }
+//                           className={`mt-2 text-xl text-red-500 cursor-pointer`}
+//                         />
+//                       </div>
+//                     );
+//                   })}
+//                   {websiteData?.landing?.categories[1].text?.length < 3 && (
+//                     <div
+//                       className="flex items-center gap-2 mt-6 cursor-pointer "
+//                       onClick={() => AddSuperPowerTag(index)}
+//                     >
+//                       <FaCirclePlus className="text-[#EEA941] text-lg" />
+//                       <p className="text-sm">Add Super Power</p>
+//                     </div>
+//                   )}
+//                 </>
+//               ) : (
+//                 <>
+//                   <input
+//                     value={item.text}
+//                     type="text"
+//                     id="hashTagTitle"
+//                     class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+//                     placeholder="Write here..."
+//                     required
+//                     onChange={(e) =>
+//                       handleCategoryInputChange(index, "text", e.target.value)
+//                     }
+//                   />
+//                 </>
+//               )}
+//             </>
+//           )}
+//         </div>
+
+//         {/* <RiDeleteBinLine
+//         onClick={() => handleCategoryObject(index)}
+//         className={`mt-2 text-xl text-red-500 cursor-pointer`}
+//       /> */}
+//       </div>
+//     );
+//   });
+// }

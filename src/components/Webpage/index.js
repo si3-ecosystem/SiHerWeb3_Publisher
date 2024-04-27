@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function WebPage({ setIsOpen }) {
-  const { websiteData } = useSelector((state) => state.content);
+  const { websiteData } = useSelector((state) => state?.content);
   return (
     <div>
       {/* <!-- nav --> */}
@@ -306,7 +306,7 @@ function WebPage({ setIsOpen }) {
                 margin: "30px 0",
               }}
             ></div>
-            <div style={{ display: "flex", gap: "8px" }}>
+            {/* <div style={{ display: "flex", gap: "8px" }}>
               {websiteData?.landing?.categories?.map((value, index) => {
                 return (
                   <div className="anim" key={index}>
@@ -324,6 +324,44 @@ function WebPage({ setIsOpen }) {
                   </div>
                 );
               })}
+            </div> */}
+
+            <div style={{ display: "flex", gap: "8px" }}>
+              <div className="anim">
+                <div className="inner_anim">
+                  <p className="top_hide">
+                    {websiteData?.landing?.categories?.region}
+                  </p>
+                </div>
+              </div>
+
+              <div className="anim">
+                <div className="inner_anim">
+                  {websiteData?.landing?.categories?.superPower.map(
+                    (text) => (
+                      <p key={text} className="top_hide">
+                        {text}
+                      </p>
+                    )
+                  )}
+                </div>
+              </div>
+
+              <div className="anim">
+                <div className="inner_anim">
+                  <p className="top_hide">
+                    {websiteData?.landing?.categories?.organizationAffiliations}
+                  </p>
+                </div>
+              </div>
+
+              <div className="anim">
+                <div className="inner_anim">
+                  <p className="top_hide">
+                    {websiteData?.landing?.categories?.communityAffiliations}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 

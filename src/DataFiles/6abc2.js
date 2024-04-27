@@ -18,24 +18,30 @@ let landing = {
     "DECENTRALIZATION",
     "EDUCATION",
   ],
-  categories: [
-    {
-      title: "Region",
-      text: "Middle East",
-    },
-    {
-      title: "Superpower",
-      text: ["Web3 Founder"],
-    },
-    {
-      title: "Organization Affiliations",
-      text: "Web3 Founder",
-    },
-    {
-      title: "Community Affiliations",
-      text: "Si Her",
-    },
-  ],
+  categories: {
+    region: "Middle East",
+    superPower: ["Web3 Founder"],
+    organizationAffiliations: "Web3 Founder",
+    communityAffiliations: "Si Her"
+  },
+  // categories: [
+  //   {
+  //     title: "Region",
+  //     text: "Middle East",
+  //   },
+  //   {
+  //     title: "Superpower",
+  //     text: ["Web3 Founder"],
+  //   },
+  //   {
+  //     title: "Organization Affiliations",
+  //     text: "Web3 Founder",
+  //   },
+  //   {
+  //     title: "Community Affiliations",
+  //     text: "Si Her",
+  //   },
+  // ],
   userimg: {
     path: "https://kara.siher.eth.limo/images/karafuture.png",
     id: null,
