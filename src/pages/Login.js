@@ -134,7 +134,7 @@ function Login() {
                 </div>
                 <a
                   href="#"
-                  className="text-sm font-medium text-[#e11d48] hover:underline dark:text-primary-500"
+                  className="text-sm font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
                 >
                   Forgot password?
                 </a>
@@ -142,7 +142,13 @@ function Login() {
               <button
                 disabled={loading}
                 type="submit"
-                className="w-full flex items-center justify-center gap-4 text-white bg-[#e11d48] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                //                 background: linear-gradient(180deg, #3E21F3 0%, #C8BAFD 100%),
+                // linear-gradient(90deg, #A020F0 0%, rgba(160, 32, 240, 0) 100%);
+
+                style={{
+                  background: "linear-gradient(#c8bafd, #3e21f3)",
+                }}
+                className="w-full flex items-center justify-center gap-4 text-white hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
               >
                 {loading && (
                   <div role="status">
@@ -171,7 +177,7 @@ function Login() {
                 Don’t have an account yet?{" "}
                 <Link
                   to="/auth/register"
-                  className="font-medium text-[#e11d48] hover:underline dark:text-primary-500"
+                  className="font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
                 >
                   Sign up
                 </Link>

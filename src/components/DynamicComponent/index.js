@@ -5,6 +5,7 @@ import MyValueFields from "../Drawers/MyValueFields";
 import VisionFields from "../Drawers/VisionFields";
 import MyCVFields from "../Drawers/CVFields";
 import AvailableFields from "../Drawers/Available";
+import LiveFields from "../Drawers/LiveFields";
 
 function DynamicComponent({ isOpen, toggleDrawer }) {
   const renderComponent = () => {
@@ -15,8 +16,10 @@ function DynamicComponent({ isOpen, toggleDrawer }) {
         return <LandingFields toggleDrawer={toggleDrawer} />;
       case "value":
         return <MyValueFields toggleDrawer={toggleDrawer} />;
-      case "vision":
-        return <VisionFields toggleDrawer={toggleDrawer} />;
+      case "live":
+        return <LiveFields toggleDrawer={toggleDrawer} />;
+      // case "vision":
+      //   return <VisionFields toggleDrawer={toggleDrawer} />;
       case "CV":
         return <MyCVFields toggleDrawer={toggleDrawer} />;
       case "available":

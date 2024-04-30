@@ -54,20 +54,7 @@ function LandingFields({ toggleDrawer }) {
       handleWebsiteData({ ...websiteData, landing: updatedLandingData })
     );
   };
-  const handleDeleteTag = (index) => {
-    const updatedLanding = { ...websiteData.landing };
-    console.log(updatedLanding);
-    updatedLanding.hashTags = updatedLanding.hashTags.filter(
-      (_, i) => i !== index
-    );
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
-  };
-  const handleAddTag = () => {
-    const updatedLanding = { ...websiteData.landing };
-    const updatedHashTags = [...updatedLanding.hashTags, ""];
-    updatedLanding.hashTags = updatedHashTags;
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
-  };
+
   const handleUpdateTag = (index, newValue) => {
     const updatedHashTags = websiteData?.landing?.hashTags?.map((tag, idx) => {
       if (idx === index) {
@@ -82,16 +69,12 @@ function LandingFields({ toggleDrawer }) {
     };
     dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
   };
-  const handleSuperCategoryInputChange = (field, value, textIndex) => {
+  const handleCategoryArrayInputChange = (value, textIndex, categoryKey) => {
     let updatedCategories = {
       ...websiteData?.landing?.categories,
-      superPower: websiteData?.landing?.categories?.superPower.map(
+      [categoryKey]: websiteData?.landing?.categories[categoryKey].map(
         (text, INDEX) => {
-          if (INDEX === textIndex) {
-            return value; // Replace the current value with the new one
-          } else {
-            return text; // Keep other values unchanged
-          }
+          return INDEX === textIndex ? value : text;
         }
       ),
     };
@@ -128,43 +111,30 @@ function LandingFields({ toggleDrawer }) {
     };
     dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
   };
-  const AddSuperPowerTag = () => {
-    const updatedCategories = {
-      ...websiteData?.landing?.categories,
-      superPower:
-        websiteData?.landing?.categories?.superPower.length < 3
-          ? [...websiteData?.landing?.categories?.superPower, " "]
-          : websiteData?.landing?.categories?.superPower,
-    };
-
-    // Create a new updated landing object
-    const updatedLanding = {
-      ...websiteData?.landing,
-      categories: updatedCategories,
-    };
-
-    // Dispatch the updated websiteData with the new landing state
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
+  const addCategoryTag = (categoryKey, maxTags) => {
+    const currentTags = websiteData?.landing?.categories[categoryKey];
+    if (currentTags.length < maxTags) {
+      const updatedCategories = {
+        ...websiteData?.landing?.categories,
+        [categoryKey]: [...currentTags, " "],
+      };
+      const updatedLanding = {
+        ...websiteData?.landing,
+        categories: updatedCategories,
+      };
+      dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
+    }
   };
-  const deleteSuperpowerTextIndex = (textIndex) => {
-    // at least it contain one element
-    if( websiteData?.landing?.categories?.superPower.length === 1)
-    {
+  const deleteCategoryTextIndex = (textIndex, categoryKey) => {
+    if (websiteData?.landing?.categories[categoryKey].length === 1) {
       return;
     }
-    
-
-    // Update categories by mapping through them
     const updatedCategories = {
       ...websiteData?.landing?.categories,
-      superPower: websiteData?.landing?.categories?.superPower.filter(
-        (ITEM, INDEX) => {
-          return INDEX != textIndex;
-        }
+      [categoryKey]: websiteData?.landing?.categories[categoryKey].filter(
+        (ITEM, INDEX) => INDEX !== textIndex
       ),
     };
-
-    // Dispatch the updated websiteData with the modified landing state
     dispatch(
       handleWebsiteData({
         ...websiteData,
@@ -173,49 +143,6 @@ function LandingFields({ toggleDrawer }) {
     );
   };
 
-  const handleCategoryObject = (index) => {
-    const updatedLanding = { ...websiteData.landing };
-    console.log(updatedLanding);
-    updatedLanding.categories = updatedLanding.categories.filter(
-      (_, i) => i !== index
-    );
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
-  };
-  const handleAddCategory = () => {
-    const updatedLanding = { ...websiteData.landing };
-    const updatedCategories = [...updatedLanding.categories, ""];
-    updatedLanding.categories = updatedCategories;
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
-  };
-
-  const handleUpdateMarque = (index, newValue) => {
-    const updatedMarque = websiteData?.landing?.marquee?.map((tag, idx) => {
-      if (idx === index) {
-        return newValue;
-      }
-      return tag;
-    });
-
-    const updatedLanding = {
-      ...websiteData.landing,
-      marquee: updatedMarque,
-    };
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
-  };
-  const handleDeleteMarque = (index) => {
-    const updatedLanding = { ...websiteData.landing };
-    console.log(updatedLanding);
-    updatedLanding.marquee = updatedLanding.marquee.filter(
-      (_, i) => i !== index
-    );
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
-  };
-  const handleAddMarque = () => {
-    const updatedLanding = { ...websiteData.landing };
-    const updatedMarque = [...updatedLanding.marquee, ""];
-    updatedLanding.marquee = updatedMarque;
-    dispatch(handleWebsiteData({ ...websiteData, landing: updatedLanding }));
-  };
   const options = [
     { value: "North America", label: "North America" },
     { value: "South America", label: "South America" },
@@ -238,7 +165,7 @@ function LandingFields({ toggleDrawer }) {
   return (
     <div className="w-full bg-white">
       <div className=" border border-b-gray-200 z-10 bg-gray-100  flex items-center justify-between  w-full p-4">
-        <p className="text-lg font-semibold">Landing Section</p>
+        <p className="text-lg font-semibold">Headline Section</p>
         <button onClick={toggleDrawer}>
           <RxCrossCircled className="text-gray-600 text-2xl" />
         </button>
@@ -307,20 +234,9 @@ function LandingFields({ toggleDrawer }) {
                     required
                     onChange={(e) => handleUpdateTag(index, e.target.value)}
                   />
-                  {/* <RiDeleteBinLine
-                    onClick={() => handleDeleteTag(index)}
-                    className={`mt-2 text-xl text-red-500 cursor-pointer`}
-                  /> */}
                 </div>
               );
             })}
-            {/* <div
-              className="flex items-center gap-2 mt-6 cursor-pointer "
-              onClick={handleAddTag}
-            >
-              <FaCirclePlus className="text-[#EEA941] text-lg" />
-              <p className="text-sm">Add Tag</p>
-            </div> */}
           </div>
           <div className="flex flex-col items-start p-4 mt-4">
             <p className="text-xs font-semibold text-gray-600">
@@ -374,16 +290,19 @@ function LandingFields({ toggleDrawer }) {
                                   placeholder="Write here..."
                                   required
                                   onChange={(e) =>
-                                    handleSuperCategoryInputChange(
-                                      "text", // field name
-                                      e.target.value, // new value
-                                      textIndex // text array index
+                                    handleCategoryArrayInputChange(
+                                      e.target.value,
+                                      textIndex,
+                                      "superPower"
                                     )
                                   }
                                 />
                                 <RiDeleteBinLine
                                   onClick={() =>
-                                    deleteSuperpowerTextIndex(textIndex)
+                                    deleteCategoryTextIndex(
+                                      textIndex,
+                                      "superPower"
+                                    )
                                   }
                                   className={`mt-2 text-xl text-red-500 cursor-pointer`}
                                 />
@@ -395,9 +314,9 @@ function LandingFields({ toggleDrawer }) {
                           3 && (
                           <div
                             className="flex items-center gap-2 mt-6 cursor-pointer "
-                            onClick={() => AddSuperPowerTag()}
+                            onClick={() => addCategoryTag("superPower", 3)}
                           >
-                            <FaCirclePlus className="text-[#EEA941] text-lg" />
+                            <FaCirclePlus className="text-[#a020f0] text-lg" />
                             <p className="text-sm">Add Super Power</p>
                           </div>
                         )}
@@ -409,25 +328,53 @@ function LandingFields({ toggleDrawer }) {
                       <p className="text-xs text-start font-semibold mt-4 text-gray-600">
                         Organization Affiliations
                       </p>
-                      <>
-                        <input
-                          value={
-                            websiteData?.landing?.categories
-                              .organizationAffiliations
+                      {websiteData?.landing?.categories?.organizationAffiliations?.map(
+                        (item, textIndex) => {
+                          return (
+                            <div className="flex items-center gap-4">
+                              <input
+                                value={item}
+                                type="text"
+                                id="hashTagTitle"
+                                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                                placeholder="Write here..."
+                                required
+                                onChange={(e) =>
+                                  handleCategoryArrayInputChange(
+                                    e.target.value,
+                                    textIndex,
+                                    "organizationAffiliations"
+                                  )
+                                }
+                              />
+                              <RiDeleteBinLine
+                                onClick={() =>
+                                  deleteCategoryTextIndex(
+                                    textIndex,
+                                    "organizationAffiliations"
+                                  )
+                                }
+                                className={`mt-2 text-xl text-red-500 cursor-pointer`}
+                              />
+                            </div>
+                          );
+                        }
+                      )}
+
+                      {websiteData?.landing?.categories.organizationAffiliations
+                        ?.length < 2 && (
+                        <div
+                          className="flex items-center gap-2 mt-6 cursor-pointer "
+                          onClick={() =>
+                            addCategoryTag("organizationAffiliations", 2)
                           }
-                          type="text"
-                          id="hashTagTitle"
-                          class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                          placeholder="Write here..."
-                          required
-                          onChange={(e) =>
-                            handleCategoryInputChange(
-                              "organizationAffiliations",
-                              e.target.value
-                            )
-                          }
-                        />
-                      </>
+                        >
+                          <FaCirclePlus className="text-[#a020f0] text-lg" />
+                          <p className="text-sm">
+                            Add Organization Affiliations
+                          </p>
+                        </div>
+                      )}
                     </div>
                     {/* communityAffiliations */}
                     <div className="w-full">
@@ -479,29 +426,31 @@ function LandingFields({ toggleDrawer }) {
                     handleAddImage={handleAddImage}
                   />
                 ) : (
-                  <div className="flex items-center justify-center w-full mt-4">
-                    <label
-                      htmlFor="dropzone-file"
-                      className="flex flex-col items-center justify-center w-full h-24 border border-[#E5E5EA] border-dashed rounded-lg cursor-pointer  hover:bg-[#fceed966] hover:border-[#F6D4A0] dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                    >
-                      <div className="flex items-center justify-center pt-5 pb-6">
-                        <IoIosAddCircle className="text-gray-500" />
-                        <p className="ms-1 text-xs text-gray-500 dark:text-gray-400">
-                          ADD AN IMAGE
-                        </p>
-                      </div>
-                      <input
-                        id="dropzone-file"
-                        type="file"
-                        className="hidden"
-                        onChange={handleAddImage}
-                      />
-                    </label>
-                  </div>
+                  <>
+                    <div className="flex items-center justify-center w-full mt-4">
+                      <label
+                        htmlFor="dropzone-file"
+                        className="flex flex-col items-center justify-center w-full h-24 border border-[#E5E5EA] border-dashed rounded-lg cursor-pointer  hover:bg-[#fceed966] hover:border-[#F6D4A0] dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                      >
+                        <div className="flex items-center justify-center pt-5 pb-6">
+                          <IoIosAddCircle className="text-gray-500" />
+                          <p className="ms-1 text-xs text-gray-500 dark:text-gray-400">
+                            ADD AN IMAGE
+                          </p>
+                        </div>
+                        <input
+                          id="dropzone-file"
+                          type="file"
+                          className="hidden"
+                          onChange={handleAddImage}
+                        />
+                      </label>
+                    </div>
+                    <span className="mt-6 text-xs text-red-500">
+                      *Image must be .jpg, .jpeg, .png
+                    </span>
+                  </>
                 )}
-                <span className="mt-6 text-xs text-red-500">
-                  *Image must be .jpg, .jpeg, .png
-                </span>
               </>
             )}
           </div>
@@ -533,36 +482,6 @@ function LandingFields({ toggleDrawer }) {
               />
             </div>
           </div>
-
-          {/* <div className="flex flex-col items-start p-4 mt-4 mb-20">
-            <p className="text-xs font-semibold text-gray-600">Marquee</p>
-            {websiteData?.landing?.marquee?.map((item, index) => {
-              return (
-                <div className="w-full flex items-center gap-4 " key={index}>
-                  <input
-                    value={item}
-                    type="text"
-                    id="hashTagTitle"
-                    class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                    placeholder="Write here..."
-                    required
-                    onChange={(e) => handleUpdateMarque(index, e.target.value)}
-                  />
-                  <RiDeleteBinLine
-                    onClick={() => handleDeleteMarque(index)}
-                    className={`mt-2 text-xl text-red-500  cursor-pointer`}
-                  />
-                </div>
-              );
-            })}
-            <div
-              className="flex items-center gap-2 mt-6 cursor-pointer "
-              onClick={handleAddMarque}
-            >
-              <FaCirclePlus className="text-[#EEA941] text-lg" />
-              <p className="text-sm">Add Marque</p>
-            </div>
-          </div> */}
         </form>
       </div>
     </div>
@@ -570,98 +489,3 @@ function LandingFields({ toggleDrawer }) {
 }
 
 export default LandingFields;
-
-// {
-//   websiteData?.landing?.categories?.map((item, index) => {
-//     return (
-//       <div className="w-full " key={index}>
-//         <p className="text-xs text-start font-semibold mt-4 text-gray-600">
-//           {item?.title}
-//         </p>
-//         <div className="">
-//           {item.title === "Region" ? (
-//             <div className="w-full mt-2">
-//               <ReactSelect
-//                 options={options}
-//                 value={websiteData?.landing?.categories?.map((val) =>
-//                   options.find((option) => option.value === val.text)
-//                 )}
-//                 onChange={(value) => {
-//                   if (value.length === 0) {
-//                     return;
-//                   }
-//                   handleCategoryInputChange(index, "text", value.value);
-//                 }}
-//                 className="basic-multi-select"
-//                 classNamePrefix="select"
-//               />
-//             </div>
-//           ) : (
-//             <>
-//               {item.title === "Superpower" ? (
-//                 <>
-//                   {item.text?.map((item, textIndex) => {
-//                     return (
-//                       <div className="flex items-center gap-4">
-//                         <input
-//                           value={item}
-//                           type="text"
-//                           id="hashTagTitle"
-//                           class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-//                           placeholder="Write here..."
-//                           required
-//                           onChange={(e) =>
-//                             handleSuperCategoryInputChange(
-//                               index, // category index
-//                               "text", // field name
-//                               e.target.value, // new value
-//                               textIndex // text array index
-//                             )
-//                           }
-//                         />
-//                         <RiDeleteBinLine
-//                           onClick={() =>
-//                             deleteSuperpowerTextIndex(index, textIndex)
-//                           }
-//                           className={`mt-2 text-xl text-red-500 cursor-pointer`}
-//                         />
-//                       </div>
-//                     );
-//                   })}
-//                   {websiteData?.landing?.categories[1].text?.length < 3 && (
-//                     <div
-//                       className="flex items-center gap-2 mt-6 cursor-pointer "
-//                       onClick={() => AddSuperPowerTag(index)}
-//                     >
-//                       <FaCirclePlus className="text-[#EEA941] text-lg" />
-//                       <p className="text-sm">Add Super Power</p>
-//                     </div>
-//                   )}
-//                 </>
-//               ) : (
-//                 <>
-//                   <input
-//                     value={item.text}
-//                     type="text"
-//                     id="hashTagTitle"
-//                     class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-//                     placeholder="Write here..."
-//                     required
-//                     onChange={(e) =>
-//                       handleCategoryInputChange(index, "text", e.target.value)
-//                     }
-//                   />
-//                 </>
-//               )}
-//             </>
-//           )}
-//         </div>
-
-//         {/* <RiDeleteBinLine
-//         onClick={() => handleCategoryObject(index)}
-//         className={`mt-2 text-xl text-red-500 cursor-pointer`}
-//       /> */}
-//       </div>
-//     );
-//   });
-// }

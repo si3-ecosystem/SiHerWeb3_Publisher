@@ -42,6 +42,8 @@ function Home() {
   const [screenWidth, setScreenWidth] = useState("100%");
   const [subdomain, setSubDomain] = useState("");
   const [isSubDomain, setisSubDomain] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isPublishWebpage, setIsPublishWebpage] = useState(false);
   console.log(isSubDomain);
   const [mode, setMode] = useState("Publish");
   const [isOpen, setIsOpen] = React.useState("");
@@ -60,11 +62,13 @@ function Home() {
         setisSubDomain(data?.subdomain);
       }
       if (!data?.data) {
+        setIsPublishWebpage(false);
         // || Object.keys(data.data).length === 0
         dispatch(handleWebsiteData(websiteContent));
         setGetLoading(false);
         return;
       }
+      setIsPublishWebpage(true);
       setMode("Update");
       setGetLoading(false);
       dispatch(handleNewWebpage(false));
@@ -82,6 +86,20 @@ function Home() {
   useEffect(() => {
     getWebsiteContent();
   }, []);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSubDomain(value);
+    const regex = /\.?siher(?:\.eth)?(?:eth)?(?:eth\b|\b)/i;
+    const containsInvalidCharacters = /[^a-zA-Z\s]/.test(value);
+    if (regex.test(value) || containsInvalidCharacters) {
+      setErrorMessage(
+        "Please enter only text without special characters or siher.eth variations."
+      );
+    } else {
+      setErrorMessage("");
+    }
+  };
+
   const AssignDomain = async () => {
     try {
       setDomainLoading(true);
@@ -193,7 +211,7 @@ function Home() {
                     {screenWidth === "100%" && (
                       <div
                         style={{
-                          borderBottom: "3px solid #EEA941",
+                          borderBottom: "3px solid #a020f0",
                           paddingBottom: "5px",
                         }}
                       ></div>
@@ -207,7 +225,7 @@ function Home() {
                     {screenWidth === "70%" && (
                       <div
                         style={{
-                          borderBottom: "3px solid #EEA941",
+                          borderBottom: "3px solid #a020f0",
                           paddingBottom: "5px",
                         }}
                       ></div>
@@ -221,7 +239,7 @@ function Home() {
                     {screenWidth === "40%" && (
                       <div
                         style={{
-                          borderBottom: "3px solid #EEA941",
+                          borderBottom: "3px solid #a020f0",
                           paddingBottom: "5px",
                         }}
                       ></div>
@@ -411,13 +429,15 @@ function Home() {
         </div>
       ) : (
         <form
-          class="w-full flex justify-center mx-auto absolute top-24"
+          class={`w-full ${
+            !isPublishWebpage && "opacity-50"
+          }  flex flex-col justify-center items-center absolute top-24`}
           onSubmit={(e) => e.preventDefault()}
         >
-          <div className="w-1/4">
+          <div className="w-[35%] relative">
             <label
               for="default-search"
-              class="mb-2 text-sm font-medium text-gray-900 sr-only "
+              class="mb-2 text-sm font-medium text-gray-900 sr-only"
             >
               Search
             </label>
@@ -440,28 +460,29 @@ function Home() {
                 </svg>
               </div>
               <input
+                disabled={!isPublishWebpage}
                 type="search"
                 id="default-search"
-                class=" w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="w-full p-2.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Submit your siher.eth domain of choice"
                 value={subdomain}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setSubDomain(e.target.value);
-                }}
-                // style={{ zIndex: "9999" }}
+                onChange={handleChange}
               />
+
+              <div class="absolute inset-y-0 end-20 flex items-center pr-3 pointer-events-none text-sm text-gray-500 dark:text-gray-400">
+                .siher.eth
+              </div>
               <button
-                disabled={domainLoading}
+                disabled={domainLoading || errorMessage || !isPublishWebpage}
                 onClick={AssignDomain}
                 type="submit"
-                class="flex items-center disabled:opacity-80  justify-center gap-3 bg-black text-white border border-black hover:bg-gray-400  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900  absolute end-2.5 bottom-1   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 "
+                class="flex items-center disabled:opacity-80 justify-center gap-3 bg-black text-white border border-black hover:bg-gray-400 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 absolute end-2.5 bottom-1 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5"
               >
                 {domainLoading && (
                   <div role="status">
                     <svg
                       aria-hidden="true"
-                      class=" w-3 h-3 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
+                      class="w-3 h-3 text-gray-200 animate-spin dark:text-gray-600 fill-red-600"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -482,6 +503,9 @@ function Home() {
               </button>
             </div>
           </div>
+          {errorMessage && (
+            <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
+          )}
         </form>
       )}
 

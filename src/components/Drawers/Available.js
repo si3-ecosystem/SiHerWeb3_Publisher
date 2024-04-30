@@ -93,7 +93,7 @@ function AvailableFields({ toggleDrawer }) {
   return (
     <div className="w-full bg-white">
       <div className=" border border-b-gray-200 z-10 bg-gray-100  flex items-center justify-between  w-full p-4">
-        <p className="text-lg font-semibold">Available Section</p>
+        <p className="text-lg font-semibold">Connect Section</p>
         <button onClick={toggleDrawer}>
           <RxCrossCircled className="text-gray-600 text-2xl" />
         </button>
@@ -139,7 +139,7 @@ function AvailableFields({ toggleDrawer }) {
               />
             </div>
           </div> */}
-          <div className="flex flex-col items-start p-4 mt-4">
+          <div className="flex flex-col items-start p-4 mt-4 mb-20">
             <div className="w-full">
               <div class=" mx-auto   max-w-7xl">
                 <div class=" mt-4 space-y-4 ">

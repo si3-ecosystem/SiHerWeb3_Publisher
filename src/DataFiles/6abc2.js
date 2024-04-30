@@ -3,13 +3,13 @@ let navbar = {
   // logo: { path: `${process.env.REACT_APP_DOMAIN_URL}/eye_logo.png`, id: null },
   // imageAltText: "logo",
   websiteName: "SI HER",
-  links: ["VALUE", "MY MEDIA", "VISION", "CV", "CONNECT"],
+  links: ["VALUE", "LIVE", "TIMELINE", "CONNECT"],
   // buttonText: "LOGIN",
   // fixedHeader: true,
 };
 let landing = {
-  title: " KARA,",
-  subTitle: "& I CREATE EQUITABLE PLATFORMS FOR THE NEW ECONOMY.",
+  title: " KARA",
+  subTitle: "& I create equitable platforms for the new economy.",
   hashTagTitle: "WHAT I STAND FOR:",
   hashTags: [
     "COLLABORATION",
@@ -21,27 +21,9 @@ let landing = {
   categories: {
     region: "Middle East",
     superPower: ["Web3 Founder"],
-    organizationAffiliations: "Web3 Founder",
-    communityAffiliations: "Si Her"
+    organizationAffiliations: ["Web3 Founder"],
+    communityAffiliations: "Si Her",
   },
-  // categories: [
-  //   {
-  //     title: "Region",
-  //     text: "Middle East",
-  //   },
-  //   {
-  //     title: "Superpower",
-  //     text: ["Web3 Founder"],
-  //   },
-  //   {
-  //     title: "Organization Affiliations",
-  //     text: "Web3 Founder",
-  //   },
-  //   {
-  //     title: "Community Affiliations",
-  //     text: "Si Her",
-  //   },
-  // ],
   userimg: {
     path: "https://kara.siher.eth.limo/images/karafuture.png",
     id: null,
@@ -260,21 +242,5 @@ let available = {
       url: "kara@si3.space",
     },
   ],
-  // linkedin: {
-  //   url: "@Si Her TV",
-  //   hide: false,
-  // },
-  // instagram: {
-  //   url: "@Si Her TV",
-  //   hide: false,
-  // },
-  // twitter: {
-  //   url: "@Si Her TV",
-  //   hide: false,
-  // },
-  // email: {
-  //   address: "kara@si3.space",
-  //   hide: false,
-  // },
 };
 export default { navbar, landing, value, vision, CV, available };

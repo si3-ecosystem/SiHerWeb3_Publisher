@@ -132,7 +132,7 @@ function MyCVFields({ toggleDrawer }) {
   return (
     <div className="w-full bg-white">
       <div className=" border border-b-gray-200 z-10 bg-gray-100  flex items-center justify-between  w-full p-4">
-        <p className="text-lg font-semibold">My CV Section</p>
+        <p className="text-lg font-semibold">Timeline Section</p>
         <button onClick={toggleDrawer}>
           <RxCrossCircled className="text-gray-600 text-2xl" onC />
         </button>
@@ -197,7 +197,7 @@ function MyCVFields({ toggleDrawer }) {
                         className="flex items-center gap-2 mt-6 cursor-pointer "
                         onClick={handleAddPastHighlights}
                       >
-                        <FaCirclePlus className="text-[#EEA941] text-lg" />
+                        <FaCirclePlus className="text-[#a020f0] text-lg" />
                         <p className="text-sm">Add Past Highlight</p>
                       </div>
                     )}
@@ -324,7 +324,7 @@ function MyCVFields({ toggleDrawer }) {
                         className="flex items-center gap-2 mt-6 cursor-pointer "
                         onClick={handleAddPresentHighlights}
                       >
-                        <FaCirclePlus className="text-[#EEA941] text-lg" />
+                        <FaCirclePlus className="text-[#a020f0] text-lg" />
                         <p className="text-sm">Add Present Highlight</p>
                       </div>
                     )}
