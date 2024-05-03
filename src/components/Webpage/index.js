@@ -1137,6 +1137,20 @@ function WebPage({ setIsOpen }) {
               borderLeft: "1px solid #d7d7d7",
             }}
           >
+            <div>
+              <div
+                className="mobile-font-20 mobile-sm-font-10"
+                style={{
+                  padding: "40px 10px",
+                  fontSize: "28px",
+                  fontWeight: 500,
+                  color: "#4f4f4f",
+                  borderLeft: "1px solid #d7d7d7",
+                }}
+              >
+                {websiteData?.CV?.past?.title}
+              </div>
+            </div>
             <div
               className="mobile-font-20 mobile-sm-font-10"
               style={{
@@ -1152,20 +1166,7 @@ function WebPage({ setIsOpen }) {
               {websiteData?.CV?.present?.title}
             </div>
           </div>
-          <div>
-            <div
-              className="mobile-font-20 mobile-sm-font-10"
-              style={{
-                padding: "40px 10px",
-                fontSize: "28px",
-                fontWeight: 500,
-                color: "#4f4f4f",
-                borderLeft: "1px solid #d7d7d7",
-              }}
-            >
-              {websiteData?.CV?.past?.title}
-            </div>
-          </div>
+
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1196,6 +1197,32 @@ function WebPage({ setIsOpen }) {
             padding: "0 110px",
           }}
         >
+          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
+            <div
+              className="mobile-font-16 mobile-sm-font-8"
+              style={{
+                padding: "40px 0",
+                fontSize: "28px",
+                fontWeight: 500,
+                color: "#4f4f4f",
+              }}
+            >
+              {websiteData?.CV?.past?.highlights?.map((item, index) => (
+                <div
+                  key={index}
+                  className="mobile-font-16 mobile-sm-font-8"
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 500,
+                    color: "#181b1f",
+                    margin: "0 16px 64px 16px",
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1235,32 +1262,7 @@ function WebPage({ setIsOpen }) {
               ))}
             </div>
           </div>
-          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
-            <div
-              className="mobile-font-16 mobile-sm-font-8"
-              style={{
-                padding: "40px 0",
-                fontSize: "28px",
-                fontWeight: 500,
-                color: "#4f4f4f",
-              }}
-            >
-              {websiteData?.CV?.past?.highlights?.map((item, index) => (
-                <div
-                  key={index}
-                  className="mobile-font-16 mobile-sm-font-8"
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 500,
-                    color: "#181b1f",
-                    margin: "0 16px 64px 16px",
-                  }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
+
           <div
             style={{
               gridColumn: "span 2 / span 2",
