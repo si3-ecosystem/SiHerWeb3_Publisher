@@ -67,7 +67,7 @@ let value = {
     },
   ],
   buttonText: "TIP IN CRYPTO",
-  buttonLink: "",
+  buttonLink: "https://www.si-her.live/",
 };
 let vision = {
   title: "MY VISION",

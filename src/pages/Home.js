@@ -1,5 +1,5 @@
 import "../CSS/App.css";
-import "../CSS/responsive.css";
+// import "../CSS/responsive.css";
 import Landing from "../components/Landing/Landing";
 import Value from "../components/Value/Value";
 import Vision from "../components/Vision/Vision";
