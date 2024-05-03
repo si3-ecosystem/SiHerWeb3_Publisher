@@ -131,6 +131,7 @@ function Home() {
       toast.success(
         `Webpage ${isNewWebpage ? "created" : "updated"} successfully`
       );
+      getWebsiteContent();
     } catch (error) {
       console.log(error);
       setLoading(false);
