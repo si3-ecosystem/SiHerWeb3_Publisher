@@ -368,11 +368,12 @@ function WebPage({ setIsOpen }) {
             </div>
           </div>
           <div
-            class="mobile-x-margin-48 mobile-sm-x-margin-20"
+            class="mobile-x-margin-48 mobile-sm-x-margin-20 mobile-no-max-w"
             style={{
               flex: "1",
               backgroundColor: "#efefefb2",
               borderRadius: "6px",
+              maxWidth: "350px",
             }}
           >
             <div style={{ padding: "45px" }}>
@@ -1426,7 +1427,7 @@ function WebPage({ setIsOpen }) {
               justifyContent: "center",
             }}
           >
-            <p style={{ margin: "30px 0" }}>
+            <p style={{ margin: "30px 0", textAlign: "center"}}>
               @2024, Si3, Inc. Si3 is a decentralizing universe of media,
               technologies and talent powered by the ecosystem's diverse voices.
             </p>
