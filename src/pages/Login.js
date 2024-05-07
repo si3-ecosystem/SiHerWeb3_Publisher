@@ -173,7 +173,7 @@ function Login() {
                 )}
                 <p> Sign In</p>
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+              {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <Link
                   to="/auth/register"
@@ -181,7 +181,7 @@ function Login() {
                 >
                   Sign up
                 </Link>
-              </p>
+              </p> */}
             </form>
           </div>
         </div>

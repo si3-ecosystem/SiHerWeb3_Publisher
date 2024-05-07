@@ -1435,7 +1435,7 @@ function WebPage({ setIsOpen }) {
             }}
           >
             <p style={{ margin: "30px 0", textAlign: "center"}}>
-              @2024, Si3, Inc. Si3 is a decentralizing universe of media,
+              @2024 Si3, Inc. Si3 is a decentralizing universe of media,
               technologies and talent powered by the ecosystem's diverse voices.
             </p>
           </div>
