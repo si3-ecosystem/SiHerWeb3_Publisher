@@ -1,9 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import "../../CSS/webpage.css";
+import React from "react"
+import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import "../../CSS/webpage.css"
 function WebPage({ setIsOpen }) {
-  const { websiteData } = useSelector((state) => state?.content);
+  const { websiteData } = useSelector((state) => state?.content)
 
   return (
     <div>
@@ -39,7 +39,7 @@ function WebPage({ setIsOpen }) {
             }}
           >
             {websiteData?.navbar?.links?.map((item, index) => {
-              return <div key={index}> {item}</div>;
+              return <div key={index}> {item}</div>
             })}
             {/* <div id="google_translate_element"></div> */}
             <div>
@@ -361,14 +361,13 @@ function WebPage({ setIsOpen }) {
                   </div>
                 )
               )}
- {websiteData?.landing?.categories?.communityAffiliations.map(
+              {websiteData?.landing?.categories?.communityAffiliations.map(
                 (text) => (
                   <div key={text} class="hero-tag">
                     {text}
                   </div>
                 )
               )}
-            
             </div>
           </div>
           <div
@@ -1088,33 +1087,31 @@ function WebPage({ setIsOpen }) {
                           </span>
                         </a>
                       </div>
-                    );
+                    )
                   })}
                 </div>
-{
-  websiteData?.value?.button && 
-  <div style={{ marginTop: "20px" }}>
-  <a href={websiteData?.value?.button?.link} target="_blank">
-    <button
-      class="mobile-font-20 mobile-sm-font-12"
-      style={{
-        border: "none",
-        borderRadius: "10px",
-        color: "white",
-        cursor: "pointer",
-        width: "100%",
-        padding: "12px",
-        fontSize: "18px",
-        fontWeight: "500",
-        background: "linear-gradient(#c8bafd, #3e21f3)",
-      }}
-    >
-      {websiteData?.value?.button?.text}
-    </button>
-  </a>
-</div>
-}
-               
+                {websiteData?.value?.button && (
+                  <div style={{ marginTop: "20px" }}>
+                    <a href={websiteData?.value?.button?.link} target="_blank">
+                      <button
+                        class="mobile-font-20 mobile-sm-font-12"
+                        style={{
+                          border: "none",
+                          borderRadius: "10px",
+                          color: "white",
+                          cursor: "pointer",
+                          width: "100%",
+                          padding: "12px",
+                          fontSize: "18px",
+                          fontWeight: "500",
+                          background: "linear-gradient(#c8bafd, #3e21f3)",
+                        }}
+                      >
+                        {websiteData?.value?.button?.text}
+                      </button>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -1145,20 +1142,6 @@ function WebPage({ setIsOpen }) {
               borderLeft: "1px solid #d7d7d7",
             }}
           >
-            <div>
-              <div
-                className="mobile-font-20 mobile-sm-font-10"
-                style={{
-                  padding: "40px 10px",
-                  fontSize: "28px",
-                  fontWeight: 500,
-                  color: "#4f4f4f",
-                  borderLeft: "1px solid #d7d7d7",
-                }}
-              >
-                {websiteData?.CV?.past?.title}
-              </div>
-            </div>
             <div
               className="mobile-font-20 mobile-sm-font-10"
               style={{
@@ -1166,7 +1149,21 @@ function WebPage({ setIsOpen }) {
                 paddingLeft: "20px",
                 marginLeft: "20px",
                 fontSize: "28px",
-                fontWeight: 500,
+                fontWeight: "500",
+                color: "#4f4f4f",
+                borderLeft: "1px solid #d7d7d7",
+              }}
+            >
+              {websiteData?.CV?.past?.title}
+            </div>
+          </div>
+          <div>
+            <div
+              className="mobile-font-20 mobile-sm-font-10"
+              style={{
+                padding: "40px 10px",
+                fontSize: "28px",
+                fontWeight: "500",
                 color: "#4f4f4f",
                 borderLeft: "1px solid #d7d7d7",
               }}
@@ -1174,7 +1171,6 @@ function WebPage({ setIsOpen }) {
               {websiteData?.CV?.present?.title}
             </div>
           </div>
-
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1187,11 +1183,11 @@ function WebPage({ setIsOpen }) {
               style={{
                 padding: "40px 75px",
                 fontSize: "28px",
-                fontWeight: 500,
+                fontWeight: "500",
                 color: "#4f4f4f",
               }}
             >
-              {websiteData?.CV?.future?.title}
+              {websiteData?.CV?.past?.title}
             </div>
           </div>
         </div>
@@ -1205,32 +1201,6 @@ function WebPage({ setIsOpen }) {
             padding: "0 110px",
           }}
         >
-          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
-            <div
-              className="mobile-font-16 mobile-sm-font-8"
-              style={{
-                padding: "40px 0",
-                fontSize: "28px",
-                fontWeight: 500,
-                color: "#4f4f4f",
-              }}
-            >
-              {websiteData?.CV?.present?.highlights?.map((item, index) => (
-                <div
-                  key={index}
-                  className="mobile-font-16 mobile-sm-font-8"
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 500,
-                    color: "#181b1f",
-                    margin: "0 16px 64px 16px",
-                  }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1271,6 +1241,32 @@ function WebPage({ setIsOpen }) {
             </div>
           </div>
 
+          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
+            <div
+              className="mobile-font-16 mobile-sm-font-8"
+              style={{
+                padding: "40px 0",
+                fontSize: "28px",
+                fontWeight: 500,
+                color: "#4f4f4f",
+              }}
+            >
+              {websiteData?.CV?.present?.highlights?.map((item, index) => (
+                <div
+                  key={index}
+                  className="mobile-font-16 mobile-sm-font-8"
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 500,
+                    color: "#181b1f",
+                    margin: "0 16px 64px 16px",
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1353,7 +1349,7 @@ function WebPage({ setIsOpen }) {
                     </svg>
                     <h2>{item?.heading}</h2>
                   </div>
-                );
+                )
               })}
             </div>
 
@@ -1424,7 +1420,7 @@ function WebPage({ setIsOpen }) {
                     </div>
                   </a>
                 </>
-              );
+              )
             })}
           </div>
           <div
@@ -1434,7 +1430,7 @@ function WebPage({ setIsOpen }) {
               justifyContent: "center",
             }}
           >
-            <p style={{ margin: "30px 0", textAlign: "center"}}>
+            <p style={{ margin: "30px 0", textAlign: "center" }}>
               @2024 Si3, Inc. Si3 is a decentralizing universe of media,
               technologies and talent powered by the ecosystem's diverse voices.
             </p>
@@ -1443,7 +1439,7 @@ function WebPage({ setIsOpen }) {
       </div>
       {/* <!-- available end --> */}
     </div>
-  );
+  )
 }
 
-export default WebPage;
+export default WebPage
