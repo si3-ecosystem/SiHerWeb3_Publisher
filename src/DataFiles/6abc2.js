@@ -22,7 +22,7 @@ let landing = {
     region: "Middle East",
     superPower: ["Web3 Founder"],
     organizationAffiliations: ["Web3 Founder"],
-    communityAffiliations: "Si Her",
+    communityAffiliations: ["Si Her"],
   },
   userimg: {
     path: "https://kara.siher.eth.limo/images/karafuture.png",
@@ -66,8 +66,10 @@ let value = {
       link: "https://podcasters.spotify.com/pod/show/b-r-i/episodes/Diversity-in-the-new-economy-e26pn30/a-aa40rlt",
     },
   ],
-  buttonText: "TIP IN CRYPTO",
-  buttonLink: "https://www.si-her.live/",
+  button:{
+    text:"TIP IN CRYPTO",
+    link:"https://www.si-her.live/"
+  },
 };
 let vision = {
   title: "MY VISION",

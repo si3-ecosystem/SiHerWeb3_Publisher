@@ -57,13 +57,11 @@ function Home() {
     try {
       setGetLoading(true);
       const { data } = await axiosInstance.get(`/api/webpage`);
-      console.log(data);
       if (data?.subdomain) {
         setisSubDomain(data?.subdomain);
       }
       if (!data?.data) {
         setIsPublishWebpage(false);
-        // || Object.keys(data.data).length === 0
         dispatch(handleWebsiteData(websiteContent));
         setGetLoading(false);
         return;
@@ -84,8 +82,11 @@ function Home() {
     }
   };
   useEffect(() => {
-    getWebsiteContent();
-  }, []);
+    if(!websiteData){
+      getWebsiteContent();
+    }
+   
+  }, [websiteData]);
   const handleChange = (e) => {
     const value = e.target.value;
     setSubDomain(value);

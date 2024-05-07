@@ -361,10 +361,14 @@ function WebPage({ setIsOpen }) {
                   </div>
                 )
               )}
-
-              <div class="hero-tag">
-                {websiteData?.landing?.categories?.communityAffiliations}
-              </div>
+ {websiteData?.landing?.categories?.communityAffiliations.map(
+                (text) => (
+                  <div key={text} class="hero-tag">
+                    {text}
+                  </div>
+                )
+              )}
+            
             </div>
           </div>
           <div
@@ -1087,27 +1091,30 @@ function WebPage({ setIsOpen }) {
                     );
                   })}
                 </div>
-
-                <div style={{ marginTop: "20px" }}>
-                  <a href={websiteData?.value?.buttonLink} target="_blank">
-                    <button
-                      class="mobile-font-20 mobile-sm-font-12"
-                      style={{
-                        border: "none",
-                        borderRadius: "10px",
-                        color: "white",
-                        cursor: "pointer",
-                        width: "100%",
-                        padding: "12px",
-                        fontSize: "18px",
-                        fontWeight: "500",
-                        background: "linear-gradient(#c8bafd, #3e21f3)",
-                      }}
-                    >
-                      {websiteData?.value?.buttonText}
-                    </button>
-                  </a>
-                </div>
+{
+  websiteData?.value?.button && 
+  <div style={{ marginTop: "20px" }}>
+  <a href={websiteData?.value?.button?.link} target="_blank">
+    <button
+      class="mobile-font-20 mobile-sm-font-12"
+      style={{
+        border: "none",
+        borderRadius: "10px",
+        color: "white",
+        cursor: "pointer",
+        width: "100%",
+        padding: "12px",
+        fontSize: "18px",
+        fontWeight: "500",
+        background: "linear-gradient(#c8bafd, #3e21f3)",
+      }}
+    >
+      {websiteData?.value?.button?.text}
+    </button>
+  </a>
+</div>
+}
+               
               </div>
             </div>
           </div>

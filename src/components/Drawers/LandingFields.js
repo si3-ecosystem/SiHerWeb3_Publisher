@@ -376,31 +376,61 @@ function LandingFields({ toggleDrawer }) {
                         </div>
                       )}
                     </div>
+
                     {/* communityAffiliations */}
                     <div className="w-full">
                       <p className="text-xs text-start font-semibold mt-4 text-gray-600">
-                        Community Affiliations
+                      Community Affiliations
                       </p>
-                      <>
-                        <input
-                          value={
-                            websiteData?.landing?.categories
-                              .communityAffiliations
+                      {websiteData?.landing?.categories?.communityAffiliations?.map(
+                        (item, textIndex) => {
+                          return (
+                            <div className="flex items-center gap-4">
+                              <input
+                                value={item}
+                                type="text"
+                                id="hashTagTitle"
+                                class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
+                                placeholder="Write here..."
+                                required
+                                onChange={(e) =>
+                                  handleCategoryArrayInputChange(
+                                    e.target.value,
+                                    textIndex,
+                                    "communityAffiliations"
+                                  )
+                                }
+                              />
+                              <RiDeleteBinLine
+                                onClick={() =>
+                                  deleteCategoryTextIndex(
+                                    textIndex,
+                                    "communityAffiliations"
+                                  )
+                                }
+                                className={`mt-2 text-xl text-red-500 cursor-pointer`}
+                              />
+                            </div>
+                          );
+                        }
+                      )}
+
+                      {websiteData?.landing?.categories.communityAffiliations
+                        ?.length < 5 && (
+                        <div
+                          className="flex items-center gap-2 mt-6 cursor-pointer "
+                          onClick={() =>
+                            addCategoryTag("communityAffiliations", 5)
                           }
-                          type="text"
-                          id="hashTagTitle"
-                          class="mt-3  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:ring-gray-300 hover:border-gray-400 focus:ring-gray-300 focus:border-gray-400 block w-full p-2.5  "
-                          placeholder="Write here..."
-                          required
-                          onChange={(e) =>
-                            handleCategoryInputChange(
-                              "communityAffiliations",
-                              e.target.value
-                            )
-                          }
-                        />
-                      </>
+                        >
+                          <FaCirclePlus className="text-[#a020f0] text-lg" />
+                          <p className="text-sm">
+                            Add Community Affiliations
+                          </p>
+                        </div>
+                      )}
                     </div>
+                
                   </div>
                 </div>
               </section>
