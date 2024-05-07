@@ -76,54 +76,103 @@ let vision = {
   description:
     "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential.",
 };
-let CV = {
-  // title: "CV Highlights",
+let CV={
   present: {
-    title: "Present",
-    highlights: [
-      {
-        year: "2002-10",
-        text: "EQUITY RESEARCH ASSOCIATE / FINANCIAL ANALYST",
-      },
-      {
-        year: "2004",
-        text: "BSC FROM UW-MADISON - PERSONAL FINANCE",
-      },
-      {
-        year: "2012",
-        text: "MBA FROM NYU STERN - MARKETING & ENTREPRENEURSHIP",
-      },
-      {
-        year: "2015-19",
-        text: "VP OF GROWTH & PARTNERSHIPS AT CLEVERTAP",
-      },
-      {
-        year: "2017-21",
-        text: "MANAGED THE FEMININE INTELLIGENCE",
-      },
-      {
-        year: "2022",
-        text: "PERSONAL DEVELOPMENT RETREAT",
-      },
-      {
-        year: "2023",
-        text: "INITIATED SI3 & SI HER TALENT COLLECTIVE",
-      },
-    ],
+      "title": "Present",
+      "highlights": [
+          "WeAreSi3",
+          "Unlocking NFT´s for Meta Impact",
+          "Diversity in the New Economy"
+      ]
   },
   past: {
-    title: "Past",
-    highlights: [
-      "WeAreSi3",
-      "Unlocking NFT´s for Meta Impact",
-      "Diversity in the New Economy",
-    ],
+      "title": "Past",
+      "highlights": [
+          {
+              "year": "2002-10",
+              "text": "EQUITY RESEARCH ASSOCIATE / FINANCIAL ANALYST"
+          },
+          {
+              "year": "2004",
+              "text": "BSC FROM UW-MADISON - PERSONAL FINANCE"
+          },
+          {
+              "year": "2012",
+              "text": "MBA FROM NYU STERN - MARKETING & ENTREPRENEURSHIP"
+          },
+          {
+              "year": "2015-19",
+              "text": "VP OF GROWTH & PARTNERSHIPS AT CLEVERTAP"
+          },
+          {
+              "year": "2017-21",
+              "text": "MANAGED THE FEMININE INTELLIGENCE"
+          },
+          {
+              "year": "2022",
+              "text": "PERSONAL DEVELOPMENT RETREAT"
+          },
+          {
+              "year": "2023",
+              "text": "INITIATED SI3 & SI HER TALENT COLLECTIVE"
+          }
+      ]
   },
   future: {
-    title: "Future",
-    text: "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential.",
-  },
-};
+      "title": "Future",
+      "text": "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential."
+  }
+}
+
+
+// let CV = {
+//   // title: "CV Highlights",
+//   present: {
+//     title: "Present",
+//     highlights: [
+//       {
+//         year: "2002-10",
+//         text: "EQUITY RESEARCH ASSOCIATE / FINANCIAL ANALYST",
+//       },
+//       {
+//         year: "2004",
+//         text: "BSC FROM UW-MADISON - PERSONAL FINANCE",
+//       },
+//       {
+//         year: "2012",
+//         text: "MBA FROM NYU STERN - MARKETING & ENTREPRENEURSHIP",
+//       },
+//       {
+//         year: "2015-19",
+//         text: "VP OF GROWTH & PARTNERSHIPS AT CLEVERTAP",
+//       },
+//       {
+//         year: "2017-21",
+//         text: "MANAGED THE FEMININE INTELLIGENCE",
+//       },
+//       {
+//         year: "2022",
+//         text: "PERSONAL DEVELOPMENT RETREAT",
+//       },
+//       {
+//         year: "2023",
+//         text: "INITIATED SI3 & SI HER TALENT COLLECTIVE",
+//       },
+//     ],
+//   },
+//   past: {
+//     title: "Past",
+//     highlights: [
+//       "WeAreSi3",
+//       "Unlocking NFT´s for Meta Impact",
+//       "Diversity in the New Economy",
+//     ],
+//   },
+//   future: {
+//     title: "Future",
+//     text: "I envision a near-term future that is operating with values based on inclusion, equity, and decentralized decision-making. I am hopeful to support in creating platforms that streamline cooperation and accelerate our human potential.",
+//   },
+// };
 let available = {
   title: "I’M AVAILABLE FOR",
   marque: [

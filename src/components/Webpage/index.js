@@ -1215,7 +1215,7 @@ function WebPage({ setIsOpen }) {
                 color: "#4f4f4f",
               }}
             >
-              {websiteData?.CV?.past?.highlights?.map((item, index) => (
+              {websiteData?.CV?.present?.highlights?.map((item, index) => (
                 <div
                   key={index}
                   className="mobile-font-16 mobile-sm-font-8"
@@ -1252,7 +1252,7 @@ function WebPage({ setIsOpen }) {
                 height: "100%",
               }}
             >
-              {websiteData?.CV?.present?.highlights?.map((item, index) => (
+              {websiteData?.CV?.past?.highlights?.map((item, index) => (
                 <div
                   key={index}
                   style={{
