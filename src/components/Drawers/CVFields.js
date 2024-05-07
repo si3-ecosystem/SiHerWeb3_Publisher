@@ -41,46 +41,46 @@ function MyCVFields({ toggleDrawer }) {
     );
   };
 
-  const handlePastHighlights = (index, value) => {
-    const updatedHighlights = [...websiteData?.CV.past?.highlights];
+  const handlePresentHighlights = (index, value) => {
+    const updatedHighlights = [...websiteData?.CV.present?.highlights];
     updatedHighlights[index] = value;
 
     const updatedCV = {
       ...websiteData.CV,
-      past: {
-        ...websiteData.CV.past,
+      present: {
+        ...websiteData.CV.present,
         highlights: updatedHighlights,
       },
     };
 
     dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
   };
-  const handleAddPastHighlights = () => {
-    if (websiteData.CV.past.highlights.length < 7) {
+  const handleAddPresentHighlights = () => {
+    if (websiteData.CV.present.highlights.length < 7) {
       const updatedCV = {
         ...websiteData.CV,
-        past: {
-          ...websiteData.CV.past,
-          highlights: [...websiteData.CV.past.highlights, ""],
+        present: {
+          ...websiteData.CV.present,
+          highlights: [...websiteData.CV.present.highlights, ""],
         },
       };
       dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
     }
   };
-  const handlePastDeleteHighlights = (index) => {
+  const handlePresentDeleteHighlights = (index) => {
     const updatedCV = {
       ...websiteData.CV,
-      past: {
-        ...websiteData.CV.past,
-        highlights: websiteData.CV.past.highlights.filter(
+      present: {
+        ...websiteData.CV.present,
+        highlights: websiteData.CV.present.highlights.filter(
           (_, i) => i !== index
         ),
       },
     };
     dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
   };
-  const handlePresentHighlightsYear = (index, field, value) => {
-    const updatedHighlights = websiteData?.CV.present?.highlights.map(
+  const handlePastHighlightsYear = (index, field, value) => {
+    const updatedHighlights = websiteData?.CV.past?.highlights.map(
       (highlight, idx) => {
         if (idx === index) {
           return {
@@ -94,8 +94,8 @@ function MyCVFields({ toggleDrawer }) {
 
     const updatedCV = {
       ...websiteData.CV,
-      present: {
-        ...websiteData.CV.present,
+      past: {
+        ...websiteData.CV.past,
         highlights: updatedHighlights,
       },
     };
@@ -103,12 +103,12 @@ function MyCVFields({ toggleDrawer }) {
     dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
   };
 
-  const handlePresentDeleteHighlights = (index) => {
+  const handlePastDeleteHighlights = (index) => {
     const updatedCV = {
       ...websiteData.CV,
-      present: {
-        ...websiteData.CV.present,
-        highlights: websiteData.CV.present.highlights.filter(
+      past: {
+        ...websiteData.CV.past,
+        highlights: websiteData.CV.past.highlights.filter(
           (_, i) => i !== index
         ),
       },
@@ -116,19 +116,19 @@ function MyCVFields({ toggleDrawer }) {
     dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
   };
 
-  const handleAddPresentHighlights = () => {
-    if (websiteData.CV.present.highlights.length < 7) {
+  const handleAddPastHighlights = () => {
+    if (websiteData.CV.past.highlights.length < 7) {
       const updatedCV = {
         ...websiteData.CV,
-        present: {
-          ...websiteData.CV.present,
-          highlights: [...websiteData.CV.present.highlights, ""],
+        past: {
+          ...websiteData.CV.past,
+          highlights: [...websiteData.CV.past.highlights, ""],
         },
       };
       dispatch(handleWebsiteData({ ...websiteData, CV: updatedCV }));
     }
   };
-  console.log(websiteData.CV.present.highlights.length);
+  console.log(websiteData.CV.past.highlights.length);
   return (
     <div className="w-full bg-white">
       <div className=" border border-b-gray-200 z-10 bg-gray-100  flex items-center justify-between  w-full p-4">
@@ -220,7 +220,7 @@ function MyCVFields({ toggleDrawer }) {
                                       placeholder="Write year here..."
                                       required
                                       onChange={(e) =>
-                                        handlePresentHighlightsYear(
+                                        handlePastHighlightsYear(
                                           index,
                                           "year",
                                           e.target.value
@@ -243,7 +243,7 @@ function MyCVFields({ toggleDrawer }) {
                                       required
                                       rows={4}
                                       onChange={(e) =>
-                                        handlePresentHighlightsYear(
+                                        handlePastHighlightsYear(
                                           index,
                                           "text",
                                           e.target.value
@@ -254,10 +254,10 @@ function MyCVFields({ toggleDrawer }) {
                                 </div>
                               </div>
                             </div>
-                            {websiteData.CV.present.highlights.length > 3 && (
+                            {websiteData.CV.past.highlights.length > 3 && (
                               <RiDeleteBinLine
                                 onClick={() =>
-                                  handlePresentDeleteHighlights(index)
+                                  handlePastDeleteHighlights(index)
                                 }
                                 className={` text-xl text-red-500 cursor-pointer`}
                               />
@@ -266,10 +266,10 @@ function MyCVFields({ toggleDrawer }) {
                         );
                       }
                     )}
-                    {websiteData.CV.present.highlights.length < 7 && (
+                    {websiteData.CV.past.highlights.length < 7 && (
                       <div
                         className="flex items-center gap-2 mt-6 cursor-pointer "
-                        onClick={handleAddPresentHighlights}
+                        onClick={handleAddPastHighlights}
                       >
                         <FaCirclePlus className="text-[#a020f0] text-lg" />
                         <p className="text-sm">Add Present Highlight</p>
@@ -303,13 +303,13 @@ function MyCVFields({ toggleDrawer }) {
                                 required
                                 rows={4}
                                 onChange={(e) =>
-                                  handlePastHighlights(index, e.target.value)
+                                  handlePresentHighlights(index, e.target.value)
                                 }
                               />
                               {websiteData.CV.past.highlights.length > 3 && (
                                 <RiDeleteBinLine
                                   onClick={() =>
-                                    handlePastDeleteHighlights(index)
+                                    handlePresentDeleteHighlights(index)
                                   }
                                   className={` text-xl mt-2 text-red-500 cursor-pointer`}
                                 />
@@ -322,7 +322,7 @@ function MyCVFields({ toggleDrawer }) {
                     {websiteData.CV.present.highlights.length < 7 && (
                       <div
                         className="flex items-center gap-2 mt-6 cursor-pointer "
-                        onClick={handleAddPastHighlights}
+                        onClick={handleAddPresentHighlights}
                       >
                         <FaCirclePlus className="text-[#a020f0] text-lg" />
                         <p className="text-sm">Add Past Highlight</p>
