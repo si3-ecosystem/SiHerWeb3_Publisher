@@ -1204,7 +1204,7 @@ function WebPage({ setIsOpen }) {
                 color: "#4f4f4f",
               }}
             >
-              {websiteData?.CV?.past?.title}
+              {websiteData?.CV?.future?.title}
             </div>
           </div>
         </div>
