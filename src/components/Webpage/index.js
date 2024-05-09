@@ -1422,6 +1422,7 @@ function WebPage({ setIsOpen }) {
                   <a
                     key={index}
                     href={getUpdatedHref(item?.url)}
+                    target="_blank"
                     style={{ textDecoration: "none", color: "unset" }}
                   >
                     <div
