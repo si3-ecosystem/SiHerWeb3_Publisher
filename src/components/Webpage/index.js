@@ -441,7 +441,7 @@ function WebPage({ setIsOpen }) {
                   className="mobile-sm-font-8"
                   style={{ fontSize: 16, fontWeight: 400 }}
                 >
-                  {websiteData?.landing?.pronoun}
+                  ({websiteData?.landing?.pronoun})
                 </span>
               </div>
               <div
