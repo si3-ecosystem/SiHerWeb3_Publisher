@@ -325,7 +325,7 @@ function MyCVFields({ toggleDrawer }) {
                         onClick={handleAddPresentHighlights}
                       >
                         <FaCirclePlus className="text-[#a020f0] text-lg" />
-                        <p className="text-sm">Add Past Highlight</p>
+                        <p className="text-sm">Add Present Highlight</p>
                       </div>
                     )}
                   </div>

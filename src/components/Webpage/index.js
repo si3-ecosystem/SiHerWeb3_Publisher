@@ -1,9 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import "../../CSS/webpage.css";
+import React from "react"
+import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import "../../CSS/webpage.css"
 function WebPage({ setIsOpen }) {
-  const { websiteData } = useSelector((state) => state?.content);
+  const { websiteData } = useSelector((state) => state?.content)
+
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+ function getUpdatedHref(url="") {
+    if (isValidEmail(url)) {
+      return 'mailto:' + url; 
+    }
+
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url; 
+    }
+
+    return 'https://' + url;
+  }
 
   return (
     <div>
@@ -39,7 +56,7 @@ function WebPage({ setIsOpen }) {
             }}
           >
             {websiteData?.navbar?.links?.map((item, index) => {
-              return <div key={index}> {item}</div>;
+              return <div key={index}> {item}</div>
             })}
             {/* <div id="google_translate_element"></div> */}
             <div>
@@ -361,14 +378,13 @@ function WebPage({ setIsOpen }) {
                   </div>
                 )
               )}
- {websiteData?.landing?.categories?.communityAffiliations.map(
+              {websiteData?.landing?.categories?.communityAffiliations.map(
                 (text) => (
                   <div key={text} class="hero-tag">
                     {text}
                   </div>
                 )
               )}
-            
             </div>
           </div>
           <div
@@ -425,7 +441,7 @@ function WebPage({ setIsOpen }) {
                   className="mobile-sm-font-8"
                   style={{ fontSize: 16, fontWeight: 400 }}
                 >
-                  {websiteData?.landing?.pronoun}
+                  ({websiteData?.landing?.pronoun})
                 </span>
               </div>
               <div
@@ -1088,7 +1104,7 @@ function WebPage({ setIsOpen }) {
                           </span>
                         </a>
                       </div>
-                    );
+                    )
                   })}
                 </div>
 {
@@ -1145,20 +1161,6 @@ function WebPage({ setIsOpen }) {
               borderLeft: "1px solid #d7d7d7",
             }}
           >
-            <div>
-              <div
-                className="mobile-font-20 mobile-sm-font-10"
-                style={{
-                  padding: "40px 10px",
-                  fontSize: "28px",
-                  fontWeight: 500,
-                  color: "#4f4f4f",
-                  borderLeft: "1px solid #d7d7d7",
-                }}
-              >
-                {websiteData?.CV?.past?.title}
-              </div>
-            </div>
             <div
               className="mobile-font-20 mobile-sm-font-10"
               style={{
@@ -1166,7 +1168,21 @@ function WebPage({ setIsOpen }) {
                 paddingLeft: "20px",
                 marginLeft: "20px",
                 fontSize: "28px",
-                fontWeight: 500,
+                fontWeight: "500",
+                color: "#4f4f4f",
+                borderLeft: "1px solid #d7d7d7",
+              }}
+            >
+              {websiteData?.CV?.past?.title}
+            </div>
+          </div>
+          <div>
+            <div
+              className="mobile-font-20 mobile-sm-font-10"
+              style={{
+                padding: "40px 10px",
+                fontSize: "28px",
+                fontWeight: "500",
                 color: "#4f4f4f",
                 borderLeft: "1px solid #d7d7d7",
               }}
@@ -1174,7 +1190,6 @@ function WebPage({ setIsOpen }) {
               {websiteData?.CV?.present?.title}
             </div>
           </div>
-
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1187,7 +1202,7 @@ function WebPage({ setIsOpen }) {
               style={{
                 padding: "40px 75px",
                 fontSize: "28px",
-                fontWeight: 500,
+                fontWeight: "500",
                 color: "#4f4f4f",
               }}
             >
@@ -1205,32 +1220,6 @@ function WebPage({ setIsOpen }) {
             padding: "0 110px",
           }}
         >
-          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
-            <div
-              className="mobile-font-16 mobile-sm-font-8"
-              style={{
-                padding: "40px 0",
-                fontSize: "28px",
-                fontWeight: 500,
-                color: "#4f4f4f",
-              }}
-            >
-              {websiteData?.CV?.present?.highlights?.map((item, index) => (
-                <div
-                  key={index}
-                  className="mobile-font-16 mobile-sm-font-8"
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 500,
-                    color: "#181b1f",
-                    margin: "0 16px 64px 16px",
-                  }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1271,6 +1260,32 @@ function WebPage({ setIsOpen }) {
             </div>
           </div>
 
+          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
+            <div
+              className="mobile-font-16 mobile-sm-font-8"
+              style={{
+                padding: "40px 0",
+                fontSize: "28px",
+                fontWeight: 500,
+                color: "#4f4f4f",
+              }}
+            >
+              {websiteData?.CV?.present?.highlights?.map((item, index) => (
+                <div
+                  key={index}
+                  className="mobile-font-16 mobile-sm-font-8"
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 500,
+                    color: "#181b1f",
+                    margin: "0 16px 64px 16px",
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1353,7 +1368,7 @@ function WebPage({ setIsOpen }) {
                     </svg>
                     <h2>{item?.heading}</h2>
                   </div>
-                );
+                )
               })}
             </div>
 
@@ -1408,7 +1423,8 @@ function WebPage({ setIsOpen }) {
                 <>
                   <div
                     key={index}
-                    // href={"#"}
+                    href={getUpdatedHref(item?.url)}
+                    target="_blank"
                     style={{ textDecoration: "none", color: "unset" }}
                   >
                     <div
@@ -1419,12 +1435,11 @@ function WebPage({ setIsOpen }) {
                         backgroundColor: "#ffffff1a",
                       }}
                     >
-                      <span>{item.text}:</span>
-                      <span> {item.url} </span>
+                      <span>{item.text}</span>
                     </div>
                   </div>
                 </>
-              );
+              )
             })}
           </div>
           <div
@@ -1434,8 +1449,8 @@ function WebPage({ setIsOpen }) {
               justifyContent: "center",
             }}
           >
-            <p style={{ margin: "30px 0", textAlign: "center"}}>
-              @2024 Si3, Inc. Si3 is a decentralizing universe of media,
+            <p style={{ margin: "30px 0", textAlign: "center" }}>
+              @2024 Si3 Inc. Si3 is a decentralizing universe of media,
               technologies and talent powered by the ecosystem's diverse voices.
             </p>
           </div>
@@ -1443,7 +1458,7 @@ function WebPage({ setIsOpen }) {
       </div>
       {/* <!-- available end --> */}
     </div>
-  );
+  )
 }
 
-export default WebPage;
+export default WebPage
