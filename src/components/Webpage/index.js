@@ -1094,7 +1094,7 @@ function WebPage({ setIsOpen }) {
 {
   websiteData?.value?.button && 
   <div style={{ marginTop: "20px" }}>
-  <a href={websiteData?.value?.button?.link} target="_blank">
+  {/* <a href={websiteData?.value?.button?.link} target="_blank"> */}
     <button
       class="mobile-font-20 mobile-sm-font-12"
       style={{
@@ -1111,7 +1111,7 @@ function WebPage({ setIsOpen }) {
     >
       {websiteData?.value?.button?.text}
     </button>
-  </a>
+  {/* </a> */}
 </div>
 }
                
@@ -1406,9 +1406,9 @@ function WebPage({ setIsOpen }) {
             {websiteData?.available?.socialChannels?.map((item, index) => {
               return (
                 <>
-                  <a
+                  <div
                     key={index}
-                    href={item?.url}
+                    // href={"#"}
                     style={{ textDecoration: "none", color: "unset" }}
                   >
                     <div
@@ -1422,7 +1422,7 @@ function WebPage({ setIsOpen }) {
                       <span>{item.text}:</span>
                       <span> {item.url} </span>
                     </div>
-                  </a>
+                  </div>
                 </>
               );
             })}
