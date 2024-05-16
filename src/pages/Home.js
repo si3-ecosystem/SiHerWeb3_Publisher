@@ -46,6 +46,7 @@ function Home() {
   const [isPublishWebpage, setIsPublishWebpage] = useState(false);
   console.log(isSubDomain);
   const [mode, setMode] = useState("Publish");
+  const userData = JSON.parse(localStorage.getItem("SI_HER"));
   const [isOpen, setIsOpen] = React.useState("");
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
@@ -82,11 +83,11 @@ function Home() {
     }
   };
   useEffect(() => {
-    if(!websiteData){
+    if(!websiteData && userData){
       getWebsiteContent();
     }
    
-  }, [websiteData]);
+  }, [websiteData,userData]);
   const handleChange = (e) => {
     const value = e.target.value;
     setSubDomain(value);

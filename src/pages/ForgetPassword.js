@@ -4,36 +4,35 @@ import * as Yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import successAnimation from "../utils/success.json";
+import Lottie from "lottie-react";
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required"),
 });
 
-function Login() {
+function ForgetPassword() {
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false)
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: "",
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         setLoading(true);
         const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/api/auth`,
+          `${process.env.REACT_APP_BASE_URL}/api/auth/forgot-password`,
           values
         );
-        console.log(response.data); // Handle successful login
-        toast.success("Login successfull");
-        localStorage.setItem("SI_HER", JSON.stringify(response.data));
-        navigate("/home");
+        console.log(response.data);
+        setSuccess(true)
         setLoading(false);
       } catch (error) {
         console.error(error);
         setLoading(false);
-        if (error.response.status === 400) {
+        if (error.response.status === 404 || error.response.status === 400) {
           toast.error(error.response.data);
           return;
         }
@@ -45,7 +44,35 @@ function Login() {
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          {success ? (
+        <div className="w-full   bg-white rounded-3xl p-10 md:m-5">
+          <div className="text-center">
+            <h1  className="font-bold mb-4 text-primary ">
+              SI HER
+            </h1>
+          </div>
+          <div className=" h-48 flex  justify-center w-full">
+            <Lottie
+              loop={false}
+              autoPlay={false}
+              animationData={successAnimation}
+            />
+          </div>
+          <div className="text-center">
+            <h2
+              className="font-bold mb-8 text-primary  text-2xl "
+            >
+              Reset Password link sent successfully!
+            </h2>
+            <h2
+              className="font-medium mb-8 text-gray-600  text-md "
+            >
+              Please check your email to reset your password
+            </h2>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -56,7 +83,7 @@ function Login() {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
+             Forget Password
             </h1>
             <form
               className="space-y-4 md:space-y-6"
@@ -87,56 +114,14 @@ function Login() {
                   </p>
                 )}
               </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="••••••••"
-                  className={`${
-                    formik.errors.password && formik.touched.password
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } bg-gray-50 border text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                  {...formik.getFieldProps("password")}
-                />
-                {formik.errors.password && formik.touched.password && (
-                  <p className="text-red-500 text-xs mt-1">
-                    *{formik.errors.password}
-                  </p>
-                )}
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
+         
+              <div className="flex items-center w-full justify-end">
+           
                 <Link
-                 to={"/auth/forget-password"}
+                  to={"/auth/login"}
                   className="text-sm font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
                 >
-                  Forgot password?
+                  Sign in instead?
                 </Link>
               </div>
               <button
@@ -148,7 +133,7 @@ function Login() {
                 style={{
                   background: "linear-gradient(#c8bafd, #3e21f3)",
                 }}
-                className="w-full flex items-center justify-center gap-4 text-white hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                className="w-full flex items-center justify-center gap-4 text-white hover:bg-primary-700  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
               >
                 {loading && (
                   <div role="status">
@@ -173,21 +158,15 @@ function Login() {
                 )}
                 <p> Sign In</p>
               </button>
-              {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
-                <Link
-                  to="/auth/register"
-                  className="font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
-                >
-                  Sign up
-                </Link>
-              </p> */}
+             
             </form>
           </div>
         </div>
       </div>
+      )}
+  
     </section>
   );
 }
 
-export default Login;
+export default ForgetPassword;

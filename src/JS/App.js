@@ -12,6 +12,8 @@ import Preview from "../pages/Preview.js";
 import Register from "../pages/Register.js";
 import { Toaster } from "react-hot-toast";
 import PreviewWebPage from "../components/preview/index.js";
+import ForgetPassword from "../pages/ForgetPassword.js";
+import ResetPassword from "../pages/ResetPassword.js";
 function App() {
   return (
     <div>
@@ -33,12 +35,12 @@ function App() {
         />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
-        {/* <Route path="/auth/forget-password" element={<ForgetPassword />} />
-        <Route path="/auth/verify-otp/:id/:token" element={<OTP />} />
-        <Route
-          path="/auth/reset-password/:id/:token"
-          element={<ChangePassword />}
-        /> */}
+        <Route path="/auth/forget-password" element={<ForgetPassword />} />
+         {/* <Route path="/auth/verify-otp/:id/:token" element={<OTP />} /> */}
+       <Route
+          path="/auth/reset-password"
+          element={<ResetPassword />}
+        />
         <Route path="*" element={<Error />} />
       </Routes>
     </div>

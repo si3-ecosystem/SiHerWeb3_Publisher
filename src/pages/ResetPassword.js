@@ -2,33 +2,38 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], "Passwords must match")
+      .required("Confirm Password is required"),
+  });
+  
 
-function Login() {
+function ResetPassword() {
+    const [searchParams] = useSearchParams();
+const token=searchParams.get("token")
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      email: "",
       password: "",
+      confirmPassword:""
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         setLoading(true);
         const response = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/api/auth`,
-          values
+          `${process.env.REACT_APP_BASE_URL}/api/auth/reset-password?token=${token}`,
+          {password:values.password}
         );
-        console.log(response.data); // Handle successful login
-        toast.success("Login successfull");
-        localStorage.setItem("SI_HER", JSON.stringify(response.data));
-        navigate("/home");
+        toast.success(response.data);
+        navigate("/auth/login");
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -56,38 +61,13 @@ function Login() {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
+            Change Password
             </h1>
             <form
               className="space-y-4 md:space-y-6"
               onSubmit={formik.handleSubmit}
             >
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className={`${
-                    formik.errors.email && formik.touched.email
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } bg-gray-50 border text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                  placeholder="name@company.com"
-                  {...formik.getFieldProps("email")}
-                />
-                {formik.errors.email && formik.touched.email && (
-                  <p className="text-red-500 text-xs mt-1">
-                    *{formik.errors.email}
-                  </p>
-                )}
-              </div>
-              <div>
+                 <div>
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -112,33 +92,32 @@ function Login() {
                   </p>
                 )}
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                      required=""
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <Link
-                 to={"/auth/forget-password"}
-                  className="text-sm font-medium text-[#3E21F3] hover:underline dark:text-primary-500"
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Forgot password?
-                </Link>
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  placeholder="••••••••"
+                  className={`${
+                    formik.errors.confirmPassword && formik.touched.confirmPassword
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  } bg-gray-50 border text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                  {...formik.getFieldProps("confirmPassword")}
+                />
+                {formik.errors.confirmPassword && formik.touched.confirmPassword && (
+                  <p className="text-red-500 text-xs mt-1">
+                    *{formik.errors.confirmPassword}
+                  </p>
+                )}
               </div>
+           
               <button
                 disabled={loading}
                 type="submit"
@@ -190,4 +169,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ResetPassword;
