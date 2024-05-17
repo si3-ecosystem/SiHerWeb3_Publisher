@@ -519,8 +519,8 @@ function WebPage({ setIsOpen }) {
                 fontSize: "16px",
                 fontWeight: 400,
               }}
+              dangerouslySetInnerHTML={{ __html: websiteData?.value?.description.replace(/\n/g, '<br/>') }}
             >
-              {websiteData?.value?.description}
             </p>
           </div>
 
@@ -890,8 +890,8 @@ function WebPage({ setIsOpen }) {
               <p
                 className="mobile-sm-font-12"
                 style={{ color: "#828282", fontSize: "16px", fontWeight: 400 }}
+                dangerouslySetInnerHTML={{ __html: websiteData?.vision?.description.replace(/\n/g, '<br/>') }}
               >
-                {websiteData?.vision?.description}
               </p>
             </div>
           </div>
@@ -1301,8 +1301,9 @@ function WebPage({ setIsOpen }) {
                 fontWeight: 400,
                 color: "#828282",
               }}
+              dangerouslySetInnerHTML={{ __html: websiteData?.CV?.future?.text.replace(/\n/g, '<br/>') }}
             >
-              {websiteData?.CV?.future?.text}
+              {/* {websiteData?.CV?.future?.text} */}
             </div>
           </div>
         </div>
