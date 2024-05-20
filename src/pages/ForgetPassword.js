@@ -156,7 +156,7 @@ function ForgetPassword() {
                     <span class="sr-only">Loading...</span>
                   </div>
                 )}
-                <p> Sign In</p>
+                <p>Forget Password</p>
               </button>
              
             </form>

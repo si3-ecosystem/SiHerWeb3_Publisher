@@ -150,7 +150,7 @@ const token=searchParams.get("token")
                     <span class="sr-only">Loading...</span>
                   </div>
                 )}
-                <p> Sign In</p>
+                <p> Reset Password</p>
               </button>
               {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
