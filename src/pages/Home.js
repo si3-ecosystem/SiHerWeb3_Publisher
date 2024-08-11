@@ -32,6 +32,8 @@ import axiosInstance from "../utils/axiosInstance.js";
 import WebPage from "../components/Webpage/index.js";
 import { Dropdown } from "flowbite-react";
 import { IoIosLogOut } from "react-icons/io";
+import TopOfNavbar from "../components/TopNavbar/TopNavbar.js";
+
 function Home() {
   const navigate = useNavigate();
   const { websiteData, isNewWebpage } = useSelector((state) => state.content);
@@ -83,11 +85,10 @@ function Home() {
     }
   };
   useEffect(() => {
-    if(!websiteData && userData){
+    if (!websiteData && userData) {
       getWebsiteContent();
     }
-   
-  }, [websiteData,userData]);
+  }, [websiteData, userData]);
   const handleChange = (e) => {
     const value = e.target.value;
     setSubDomain(value);
@@ -150,7 +151,10 @@ function Home() {
   };
   return (
     <div className="App">
-      <nav className="border border-b-gray-400 fixed w-full top-0 bg-white z-10">
+
+
+<TopOfNavbar/>
+      <nav className="border border-b-gray-400 w-full top-10 bg-white z-10">
         <div class="w-full px-2 sm:px-6 lg:px-8">
           <div class="relative flex h-16 items-center justify-between">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -422,7 +426,7 @@ function Home() {
         </div>
       </nav>
       {isSubDomain ? (
-        <div class="w-full flex justify-center items-center mx-auto absolute top-24 font-serif">
+        <div class="w-full flex justify-center items-center mx-auto absolute top-[170px] font-serif">
           <h3>Web page url: </h3>
           <a
             href={`https://${isSubDomain}.${process.env.REACT_APP_SIHER_DOMAIN}`}
@@ -437,7 +441,7 @@ function Home() {
           }  flex flex-col justify-center items-center absolute top-24`}
           onSubmit={(e) => e.preventDefault()}
         >
-          <div className="w-[35%] relative">
+          <div className="w-[35%] top-[110px] relative">
             <label
               for="default-search"
               class="mb-2 text-sm font-medium text-gray-900 sr-only"

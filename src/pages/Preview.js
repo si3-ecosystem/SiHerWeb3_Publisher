@@ -14,6 +14,7 @@ import websiteData from "../DataFiles/6abc2.js";
 import "react-modern-drawer/dist/index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handleWebsiteData } from "../reducers/contentReducer.js";
+
 function Preview() {
   const dispatch = useDispatch();
   const { websiteData } = useSelector((state) => state.content);
@@ -35,6 +36,7 @@ function Preview() {
     <div className="App">
       <div className="flex   bg-[#d5d5e3]">
         <div className="w-full">
+   
           <Navbar />
 
           <Landing />
