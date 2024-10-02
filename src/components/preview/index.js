@@ -1113,7 +1113,9 @@ function PreviewWebPage() {
       {/* <!-- siher tv end -->
 
     <!-- cv start --> */}
-      <div style={{ backgroundColor: "#f5f5f5" }}>
+      <div
+        style={{ backgroundColor: "#f5f5f5" }}
+      >
         <div
           className="mobile-font-20 mobile-sm-font-10 mobile-padding-x-32 mobile-sm-padding-x-16"
           style={{
@@ -1131,20 +1133,6 @@ function PreviewWebPage() {
               borderLeft: "1px solid #d7d7d7",
             }}
           >
-            <div>
-              <div
-                className="mobile-font-20 mobile-sm-font-10"
-                style={{
-                  padding: "40px 10px",
-                  fontSize: "28px",
-                  fontWeight: 500,
-                  color: "#4f4f4f",
-                  borderLeft: "1px solid #d7d7d7",
-                }}
-              >
-                {websiteData?.CV?.past?.title}
-              </div>
-            </div>
             <div
               className="mobile-font-20 mobile-sm-font-10"
               style={{
@@ -1152,7 +1140,21 @@ function PreviewWebPage() {
                 paddingLeft: "20px",
                 marginLeft: "20px",
                 fontSize: "28px",
-                fontWeight: 500,
+                fontWeight: "500",
+                color: "#4f4f4f",
+                borderLeft: "1px solid #d7d7d7",
+              }}
+            >
+              {websiteData?.CV?.past?.title}
+            </div>
+          </div>
+          <div>
+            <div
+              className="mobile-font-20 mobile-sm-font-10"
+              style={{
+                padding: "40px 10px",
+                fontSize: "28px",
+                fontWeight: "500",
                 color: "#4f4f4f",
                 borderLeft: "1px solid #d7d7d7",
               }}
@@ -1160,7 +1162,6 @@ function PreviewWebPage() {
               {websiteData?.CV?.present?.title}
             </div>
           </div>
-
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1173,7 +1174,7 @@ function PreviewWebPage() {
               style={{
                 padding: "40px 75px",
                 fontSize: "28px",
-                fontWeight: 500,
+                fontWeight: "500",
                 color: "#4f4f4f",
               }}
             >
@@ -1191,32 +1192,6 @@ function PreviewWebPage() {
             padding: "0 110px",
           }}
         >
-          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
-            <div
-              className="mobile-font-16 mobile-sm-font-8"
-              style={{
-                padding: "40px 0",
-                fontSize: "28px",
-                fontWeight: 500,
-                color: "#4f4f4f",
-              }}
-            >
-              {websiteData?.CV?.past?.highlights?.map((item, index) => (
-                <div
-                  key={index}
-                  className="mobile-font-16 mobile-sm-font-8"
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 500,
-                    color: "#181b1f",
-                    margin: "0 16px 64px 16px",
-                  }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1238,7 +1213,7 @@ function PreviewWebPage() {
                 height: "100%",
               }}
             >
-              {websiteData?.CV?.present?.highlights?.map((item, index) => (
+              {websiteData?.CV?.past?.highlights?.map((item, index) => (
                 <div
                   key={index}
                   style={{
@@ -1257,6 +1232,32 @@ function PreviewWebPage() {
             </div>
           </div>
 
+          <div style={{ overflowY: "auto", borderLeft: "1px solid #d7d7d7" }}>
+            <div
+              className="mobile-font-16 mobile-sm-font-8"
+              style={{
+                padding: "40px 0",
+                fontSize: "28px",
+                fontWeight: 500,
+                color: "#4f4f4f",
+              }}
+            >
+              {websiteData?.CV?.present?.highlights?.map((item, index) => (
+                <div
+                  key={index}
+                  className="mobile-font-16 mobile-sm-font-8"
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 500,
+                    color: "#181b1f",
+                    margin: "0 16px 64px 16px",
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
           <div
             style={{
               gridColumn: "span 2 / span 2",
@@ -1272,8 +1273,9 @@ function PreviewWebPage() {
                 fontWeight: 400,
                 color: "#828282",
               }}
+              dangerouslySetInnerHTML={{ __html: websiteData?.CV?.future?.text.replace(/\n/g, '<br/>') }}
             >
-              {websiteData?.CV?.future?.text}
+              {/* {websiteData?.CV?.future?.text} */}
             </div>
           </div>
         </div>
